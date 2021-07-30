@@ -6,3 +6,5 @@ mongoose.connect('mongodb://localhost/blog', (err) => {
         console.log('数据库连接成功')
     }
 })
+
+module.exports = mongoose

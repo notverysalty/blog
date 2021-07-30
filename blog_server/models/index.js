@@ -5,4 +5,4 @@ const Tag = require('./tag')
 const Article = require('./article')
 const Link = require('./link')
 
-export {Blogger, Type, Comment, Tag, Article, Link}
+module.exports = {Blogger, Type, Comment, Tag, Article, Link}

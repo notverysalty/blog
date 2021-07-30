@@ -20,10 +20,10 @@ const CommentSchema = new Schema({
     required: true
   },
   // 是否回复，回复id
-  response: {
-    type: 'String',
-    required: false,
-    default: ''
+  response: Array,
+  create_time: {
+    type: Date,
+    required: true
   }
 })
 
