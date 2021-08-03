@@ -7,7 +7,7 @@
         </a-col>
         <a-col flex="0 1 300px" class="right">
           <a-dropdown :trigger="['click']">
-            <a-avatar :size="large">
+            <a-avatar :size="large" style="cursor: pointer;">
               <template #icon><UserOutlined /></template>
             </a-avatar>
             <template #overlay>
@@ -48,10 +48,10 @@
               </span>
             </template>
             <a-menu-item key="1"
-              ><router-link to="/about">我的文章 </router-link></a-menu-item
+              ><router-link :to="{name: 'articleList'}">我的文章 </router-link></a-menu-item
             >
             <a-menu-item key="2"
-              ><router-link to="/about">新增文章 </router-link></a-menu-item
+              ><router-link :to="{name: 'addArticle'}">新增文章 </router-link></a-menu-item
             >
           </a-sub-menu>
           <a-sub-menu key="sub2">
@@ -62,7 +62,7 @@
               </span>
             </template>
             <a-menu-item key="5"
-              ><router-link to="/about">类型列表 </router-link></a-menu-item
+              ><router-link :to="{name: 'typeList'}">类型列表 </router-link></a-menu-item
             >
             <a-menu-item key="6"
               ><router-link to="/about">新增类型 </router-link></a-menu-item
@@ -76,7 +76,7 @@
               </span>
             </template>
             <a-menu-item key="9"
-              ><router-link to="/about">标签列表 </router-link></a-menu-item
+              ><router-link :to="{name: 'tagList'}">标签列表 </router-link></a-menu-item
             >
             <a-menu-item key="10"
               ><router-link to="/about">新增标签 </router-link></a-menu-item
