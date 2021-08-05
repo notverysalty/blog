@@ -13,7 +13,7 @@
             <template #overlay>
               <a-menu>
                 <a-menu-item key="1"> <UserOutlined />个人中心</a-menu-item>
-                <a-menu-item key="2"> <ExportOutlined />退出</a-menu-item>
+                <a-menu-item key="2"> <ExportOutlined /><router-link :to="{name: 'login'}">退出 </router-link></a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>

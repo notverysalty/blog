@@ -1,11 +1,16 @@
 <template>
   <div>
-    <MyTable title="标签列表" :data="data" :columns="columns" @actionClick="actionClick" />
+    <MyTable
+      title="标签列表"
+      :data="data"
+      :columns="columns"
+      @actionClick="actionClick"
+    />
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
-import MyTable from '../../components/MyTable.vue'
+import { defineComponent, inject, onBeforeMount } from "vue";
+import MyTable from "../../components/MyTable.vue";
 const columns = [
   {
     title: "Name",
@@ -101,23 +106,27 @@ const data = [
         name: "查看",
         even: "edit",
       },
-    ],  
+    ],
   },
 ];
 const actionClick = (key) => {
-  console.log(key)
-}
+  console.log(key);
+};
 export default defineComponent({
   setup() {
+    const http = inject("$http")
+    onBeforeMount(async () => {
+      await http.tag.getTag();
+    })
     return {
       data,
       columns,
-      actionClick
+      actionClick,
     };
   },
 
   components: {
-    MyTable
+    MyTable,
   },
 });
 </script>

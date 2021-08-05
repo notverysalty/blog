@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, inject, onBeforeMount } from "vue";
 import MyTable from '../../components/MyTable.vue'
 const columns = [
   {
@@ -109,6 +109,10 @@ const actionClick = (key) => {
 }
 export default defineComponent({
   setup() {
+    const http = inject('$http')
+    onBeforeMount(async () => {
+      await http.tag.getTag()
+    })
     return {
       data,
       columns,

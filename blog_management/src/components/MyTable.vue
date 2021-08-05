@@ -1,6 +1,6 @@
 <template>
   <a-card :title="title" :bordered="false">
-    <a-table :columns="columns" :data-source="data">
+    <a-table :columns="columns" :data-source="data" class="table">
       <template #tags="{ text: tags }">
         <span>
           <a-tag
@@ -49,4 +49,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+  .table {
+    text-align: center;
+  }
 </style>
