@@ -52,4 +52,23 @@ router.get('/removeTag', async (ctx, next) => {
   }
 })
 
+// 获取指定数量标签
+router.get('/getTag', async (ctx, next) => {
+  try {
+    const data = await Tag.find(ctx.query.term).sort({ tag_id: -1 }).skip(ctx.query.page).limit(ctx.query.num)
+    ctx.status = 200
+    ctx.body = {
+      code: 200,
+      data,
+      msg: '查询成功'
+    }
+  } catch (err) {
+    ctx.status = 500
+    ctx.body = {
+      code: 500,
+      msg: err
+    }
+  }
+})
+
 module.exports = router

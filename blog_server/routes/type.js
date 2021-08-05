@@ -47,17 +47,13 @@ router.get('/removeType', async (ctx, next) => {
 })
 
 // 获取所有类型
-router.get('getDepicAll', async (ctx, next) => {
+router.get('/getType', async (ctx, next) => {
   try {
-    const typeDoc = await Type.find({})
-    const tagDoc = await Tag.find({})
+    const data = await Type.find(ctx.query.term).sort({ type_id: -1 }).skip(ctx.query.page).limit(ctx.query.num)
     ctx.status = 200
     ctx.body = {
       code: 200,
-      data: {
-        typeDoc,
-        tagDoc
-      },
+      data,
       msg: '查询成功'
     }
   } catch (err) {
