@@ -1,55 +1,55 @@
 // 文章api汇总
 const article = {
   // 添加新的博文
-  addArticle: '/addArticle',
+  addArticle: '/blog/addArticle',
   // 删除博文
-  removeArticle: '/removeArticle',
+  removeArticle: '/blog/removeArticle',
   // 修改博客
-  updateArticle: '/updateArticle',
+  updateArticle: '/blog/updateArticle',
   // 根据文章id获取博文
-  getArticle: '/getArticle',
+  getArticle: '/blog/getArticle',
   // 查询指定数量的博文列表
-  getAssignedArticle: '/getAssignedArticle',
+  getAssignedArticle: '/blog/getAssignedArticle',
   // 删除评论
-  removeComment: '/removeComment'
+  removeComment: '/comment/removeComment'
 }
 
 // 标签api汇总
 const tag = {
   // 添加新标签
-  addTag: '/addTag',
+  addTag: '/tag/addTag',
   // 删除标签
-  removeTag: '/removeTag',
+  removeTag: '/tag/removeTag',
   // 获取指定数量标签
-  getTag: '/getTag'
+  getTag: '/tag/getTag'
 }
 
 // 类型api汇总
 const type = {
   // 增加新类型
-  addType: '/addType',
+  addType: '/type/addType',
   // 删除类型
-  removeType: '/removeType',
+  removeType: '/type/removeType',
   // 获取指定数量类型
-  getType: '/getType'
+  getType: '/type/getType'
 }
 
 // 登录页api
 const login = {
   // 添加新用户
-  addUser: '/addUser',
+  addUser: '/user/addUser',
   // 删除用户
-  removeBlogger: '/removeBlogger',
+  removeBlogger: '/user/removeBlogger',
   // 登录
-  login: '/login'
+  login: '/user/login'
 }
 
 // 上传
 const upload = {
   // 上传图片
-  img: '/img',
+  img: '/upload/img',
   // 删除图片
-  removeImg: '/removeImg'
+  removeImg: '/upload/removeImg'
 }
 
 export {

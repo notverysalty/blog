@@ -31,20 +31,20 @@ router.post('/addArticle', async (ctx, next) => {
       tags: ctx.query.tags,
       author: ctx.query.author,
       type: ctx.query.type,
-      create_time: localDate()
+      create_time: localDate(),
     }).save()
     await updepict(Tag, id, true, ctx.query.tags, 1)
     await updepict(Type, id, true, ctx.query.type, 1)
     ctx.status = 200
     ctx.body = {
       code: 200,
-      msg: '保存成功。'
+      msg: '保存成功。',
     }
   } catch (err) {
     ctx.status = 500
     ctx.body = {
       code: 500,
-      msg: err
+      msg: err,
     }
   }
   // Article.find({}).then(doc => {
@@ -64,13 +64,13 @@ router.get('/removeArticle', async (ctx, next) => {
     ctx.status = 200
     ctx.body = {
       code: 200,
-      msg: '删除成功。'
+      msg: '删除成功。',
     }
   } catch (err) {
     ctx.status = 500
     ctx.body = {
       code: 500,
-      msg: err
+      msg: err,
     }
   }
 })
@@ -87,13 +87,13 @@ router.post('/updateArticle', async (ctx, next) => {
     ctx.status = 200
     ctx.body = {
       code: 200,
-      msg: '修改成功'
+      msg: '修改成功',
     }
   } catch (err) {
     ctx.status = 500
     ctx.body = {
       code: 500,
-      msg: err
+      msg: err,
     }
   }
 })
@@ -101,19 +101,22 @@ router.post('/updateArticle', async (ctx, next) => {
 // 根据文章id获取博文
 router.get('/getArticle', async (ctx, next) => {
   try {
-    const data = await Article.findOne({ article_id: ctx.query.id})
-    await Article.updateOne({ article_id: ctx.query.id }, { $set: { watch_num: data.watch_num + 1}})
+    const data = await Article.findOne({ article_id: ctx.query.id })
+    await Article.updateOne(
+      { article_id: ctx.query.id },
+      { $set: { watch_num: data.watch_num + 1 } }
+    )
     ctx.status = 200
     ctx.body = {
       code: 200,
       data,
-      msg: '查询成功'
+      msg: '查询成功',
     }
   } catch (err) {
     ctx.status = 500
     ctx.body = {
       code: 500,
-      msg: '查询失败'
+      msg: '查询失败',
     }
   }
 })
@@ -124,18 +127,21 @@ router.get('/getAssignedArticle', async (ctx, next) => {
   // page 页面
   // num 需要的数量
   try {
-    const data = Article.find(ctx.query.term, 'article_id title').sort({ article_id: -1 }).skip(ctx.query.page).limit(ctx.query.num)
+    const data = await Article.find(ctx.query.term)
+      .sort({ article_id: -1 })
+      .skip(ctx.query.page)
+      .limit(ctx.query.num)
     ctx.status = 200
     ctx.body = {
       code: 200,
       data,
-      msg: '查询成功'
+      msg: '查询成功',
     }
   } catch (err) {
     ctx.status = 500
     ctx.body = {
       code: 500,
-      msg: err
+      msg: err,
     }
   }
 })

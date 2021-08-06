@@ -1,10 +1,10 @@
 <template>
   <div>
-    <MyTable title="我的文章" :data="data" :columns="columns" @actionClick="actionClick" />
+    <MyTable title="我的文章" :loading="loading" :pagination="page" :data="data1" :columns="columns" @actionClick="actionClick" />
   </div>
 </template>
 <script>
-import { defineComponent, inject, onBeforeMount } from 'vue'
+import { defineComponent, inject, onBeforeMount, ref } from 'vue'
 import MyTable from '../../components/MyTable.vue'
 const columns = [
   {
@@ -38,7 +38,6 @@ const columns = [
   {
     title: 'Action',
     key: 'action',
-    dataIndex: 'action',
     slots: {
       customRender: 'action',
     },
@@ -115,13 +114,23 @@ const actionClick = (key) => {
 export default defineComponent({
   setup() {
     const http = inject('$http')
+    let loading = false
+    const page = {}
+    const data1 = ref([])
     onBeforeMount(async () => {
-      console.log(http, 11111)
-      await http.article.getAssignedArticle()
+      const res = await http.article.getAssignedArticle({})
+      data1.value = res.data.data
+      console.log(data1)
+      loading = true
+      page.pageSize = 10
+      page.total = data1.value.length
     })
     return {
       data,
+      data1,
       columns,
+      page,
+      loading,
       actionClick,
     }
   },

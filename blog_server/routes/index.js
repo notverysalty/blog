@@ -1,19 +1,11 @@
 const router = require('koa-router')()
+const blog = require('./blog')
+const comment = require('./comment')
+const type = require('./type')
+const tag = require('./tag')
+const upload = require('./upload')
+const userHandle = require('./userHandle')
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
-})
-
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
+router.use('/blog', blog.routes()).use('/comment', comment.routes()).use('/type', type.routes()).use('/tag', tag.routes()).use('/upload', upload.routes()).use('/user', userHandle.routes())
 
 module.exports = router

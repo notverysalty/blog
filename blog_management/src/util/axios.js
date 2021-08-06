@@ -44,7 +44,7 @@ const showStatus = (status) => {
 }
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '//api' : 'localhost:3000//apis',
+  baseURL: process.env.NODE_ENV === 'production' ? '//api' : 'http://127.0.0.1:3000',
   headers: {
     post: {
       'Content-Type': 'application/json;charset=utf-8'
@@ -52,7 +52,7 @@ const service = axios.create({
     'X-Requested-With': 'XMLHttpRequest',
     'token': localStorage.getItem('token') || ''
   },
-  withCredentials: true,
+  withCredentials: false,
   timeout: 30000,
   validateStatus () {
     return true

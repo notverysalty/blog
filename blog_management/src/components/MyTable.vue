@@ -1,6 +1,6 @@
 <template>
   <a-card :title="title" :bordered="false">
-    <a-table :columns="columns" :data-source="data" class="table">
+    <a-table :row-key="record => record" :columns="columns" :data-source="data" :loading="loading" :pagination="pagination" class="table">
       <template #tags="{ text: tags }">
         <span>
           <a-tag
@@ -18,10 +18,13 @@
           </a-tag>
         </span>
       </template>
-      <template #action="{ text }">
-        <span v-for="(item, index) in text" :key="item">
-          <a-divider v-if="index !== 0" type="vertical" />
-          <a @click="actionClick(item.even)">{{ item.name }}</a>
+      <template #action>
+        <span @click="actionClick">
+          <a id="edit">编辑</a>
+          <a-divider type="vertical" />
+          <a id="delete">删除</a>
+          <a-divider type="vertical" />
+          <a id="read">查看</a>
         </span>
       </template>
     </a-table>
@@ -32,18 +35,24 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: 'myTable',
+   props: {
+    title: String,
+    columns: Array,
+    data: Array,
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    pagination: Object
+  },
   setup(props, context) {
-    const actionClick = (key) => {
-      context.emit('actionClick', key)
+    console.log(props.data)
+    const actionClick = (e) => {
+      context.emit('actionClick', e.target.id)
     }
     return {
       actionClick
     }
-  },
-  props: {
-    title: String,
-    columns: Array,
-    data: Array
   }
 });
 </script>

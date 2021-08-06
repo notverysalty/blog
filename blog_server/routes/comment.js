@@ -14,24 +14,24 @@ router.get('/getComment', async (ctx, next) => {
     const data = await Article.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: 1 }).skip(ctx.query.page).limit(ctx.query.num)
     ctx.status = 200
     ctx.body = {
-      code = 200,
+      code: 200,
       data,
       msg: '查询成功'
     }
   } catch (err) {
     ctx.status = 500
     ctx.body = {
-      code = 500,
+      code: 500,
       msg: err
     }
   }
 })
 
-async const findComemnt = (ctx) => {
+const findComemnt = async (ctx) => {
   return await Article.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: 1 })
 }
 
-async const updateComment = (id, data) => {
+const updateComment = async (id, data) => {
   return await Article.updateOne({ article_id: id }, { $set: { comment: data } })
 }
 
