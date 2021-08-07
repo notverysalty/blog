@@ -46,7 +46,7 @@ export default defineComponent({
     pagination: Object
   },
   setup(props, context) {
-    console.log(props.data)
+    console.log(props.loading)
     const actionClick = (e) => {
       context.emit('actionClick', e.target.id)
     }

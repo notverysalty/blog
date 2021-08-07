@@ -1,5 +1,5 @@
 <template>
-  <a-layout>
+  <a-layout style="height: 100%">
     <a-layout-header class="header">
       <a-row type="flex">
         <a-col flex="1 1 200px" class="left">
@@ -161,6 +161,7 @@ export default defineComponent({
 }
 .main {
   padding: 20px 0 0;
+  height: 100%;
   background-color: #fff;
 }
 #components-layout-demo-top-side-2 .logo {
