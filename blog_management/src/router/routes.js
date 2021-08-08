@@ -10,29 +10,37 @@ const routes = [
       {
         path: 'articleList',
         name: 'articleList',
-        // route level code-splitting 
+        // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/article/ArticleList.vue')
-      }, {
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/article/ArticleList.vue'
+          ),
+      },
+      {
         path: 'addArticle',
         name: 'addArticle',
-        component: () => import('../views/article/AddArticle.vue')
-      }, {
+        component: () => import('../views/article/AddArticle.vue'),
+      },
+      {
         path: 'tagList',
         name: 'tagList',
-        component: () => import('../views/tag/TagList.vue')
-      }, {
+        component: () => import('../views/tag/TagList.vue'),
+      },
+      {
         path: 'typeList',
         name: 'typeList',
-        component: () => import('../views/type/TypeList.vue')
-        }
-    ]
-  }, {
+        component: () => import('../views/type/TypeList.vue'),
+      },
+    ],
+  },
+  {
     path: '/admin/login',
     name: 'login',
-    component: Login
-  }
+    component: Login,
+  },
+  // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 
 export default routes

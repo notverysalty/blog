@@ -58,7 +58,8 @@ export default defineComponent({
       }
       const http = inject('$http')
       const res = await http.article.addArticle()
-      res.data
+      console.log(res.data)
+      this.$router.push({ name: 'articleList'})
     }
     return {
       head,
