@@ -93,7 +93,7 @@ class Request {
   post(url, params) {
     const config = {
       method: 'post',
-      data: params,
+      params,
       url
     }
     return service(url, config)
@@ -111,7 +111,7 @@ class Request {
   put(url, params) {
     const config = {
       method: 'put',
-      data: params,
+      params,
       url
     }
     return service(url, config)

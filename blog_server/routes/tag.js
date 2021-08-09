@@ -6,7 +6,7 @@ const { Tag } = require('../models')
 
 // 路由模块
 // 添加新标签
-router.get('/addTag', async (ctx, next) => {
+router.post('/addTag', async (ctx, next) => {
   try {
     const doc = await Tag.findOne({ name: ctx.query.name })
     if (!doc) {
@@ -56,10 +56,12 @@ router.get('/removeTag', async (ctx, next) => {
 router.get('/getTag', async (ctx, next) => {
   try {
     const data = await Tag.find(ctx.query.term).sort({ tag_id: -1 }).skip(ctx.query.page).limit(ctx.query.num)
+    const total = await Tag.find(ctx.query.term).count()
     ctx.status = 200
     ctx.body = {
       code: 200,
       data,
+      total,
       msg: '查询成功'
     }
   } catch (err) {

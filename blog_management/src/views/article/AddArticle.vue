@@ -1,7 +1,7 @@
 <template>
   <div class="addArticle">
     <a-card title="文章标题" :bordered="false">
-      <a-input class="head" v-model:value="head" placeholder="" />
+      <a-input class="head" v-model:value="formState.title" placeholder="" />
     </a-card>
     <a-form layout="horizontal" class="from" :model="formState" @finish="handleFinish" @finishFailed="handleFinishFailed">
       <a-form-item label="类型：">
@@ -12,7 +12,7 @@
         </a-select>
       </a-form-item>
       <a-form-item label="标签：">
-        <a-select mode="multiple" :size="size" v-model:value="formState.tag" style="width: 200px">
+        <a-select mode="multiple" :size="size" v-model:value="formState.tags" style="width: 200px">
           <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
             {{ (i + 9).toString(36) + i }}
           </a-select-option>
@@ -20,25 +20,23 @@
       </a-form-item>
     </a-form>
     <a-card class="content" title="文章内容" :bordered="false">
-      <t-editor :init="init" v-model="value" />
+      <t-editor :init="init" v-model="formState.body" />
     </a-card>
     <a-button danger type="primary" shape="round" block @click="clickHandle">发布</a-button>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref, reactive, inject } from 'vue'
+import { defineComponent, reactive, inject } from 'vue'
 import Editor from '@tinymce/tinymce-vue'
 
 export default defineComponent({
   setup() {
-    const head = ref('')
-    const value = ref('')
     const formState = reactive({
-      user: '',
-      password: '',
+      title: '',
+      body: '',
       type:[],
-      tag: []
+      tags: []
     })
     const init = {
       language_url: 'https://lab.uxfeel.com/node_modules/tinymce/langs/zh_CN.js',
@@ -53,17 +51,15 @@ export default defineComponent({
       },
     }
     const clickHandle = async () => {
-      if (!head.value || !value.value) {
+      if (!formState.title || !formState.body) {
         return
       }
       const http = inject('$http')
-      const res = await http.article.addArticle()
+      const res = await http.article.addArticle(formState)
       console.log(res.data)
       this.$router.push({ name: 'articleList'})
     }
     return {
-      head,
-      value,
       init,
       formState,
       clickHandle,

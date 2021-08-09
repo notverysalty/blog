@@ -1,23 +1,25 @@
 <template>
   <div>
-    <a-modal title="Title" :visible="visible" :confirm-loading="confirmLoading" @ok="handleOk" @cancel="handleCancel">
-      <p>{{ modalText }}</p>
+    <a-modal :title="title" :visible="visible" :confirm-loading="!visible" @ok="handleOk" @cancel="handleCancel" cancelText="取消" okText="提交">
+      <slot></slot>
     </a-modal>
   </div>
 </template>
 <script>
-import { ref, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'ShowModl',
   props: {
+    title: {
+      type: String,
+      required: true
+    },
     visible: {
       type: Boolean,
       required: true
     }
   },
   setup(props, ctx) {
-    const modalText = ref('Content of the modal')
-    const confirmLoading = ref(false)
 
     const handleCancel = () => {
       ctx.emit('handleCancel')
@@ -27,8 +29,6 @@ export default defineComponent({
     }
 
     return {
-      modalText,
-      confirmLoading,
       handleOk,
       handleCancel
     }

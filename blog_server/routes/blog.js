@@ -135,8 +135,8 @@ router.get('/getAssignedArticle', async (ctx, next) => {
     ctx.status = 200
     ctx.body = {
       code: 200,
-      data: data,
-      total: total,
+      data,
+      total,
       msg: '查询成功',
     }
   } catch (err) {

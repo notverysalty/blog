@@ -1,109 +1,38 @@
 <template>
   <div>
-    <MyTable title="类型列表" :isButton="true" :data="data" :columns="columns" @actionClick="actionClick" @addClick="addClick" />
-    <ShowModal :visible="visible" @handleOk="handleOk" @handleCancel="handleCancel" />
+    <MyTable title="类型列表" :loading="loading" :pagination="page" :isButton="true" :data="data" :columns="columns" @actionClick="actionClick" @addClick="addClick" />
+    <ShowModal :title="title" :visible="visible" @handleOk="handleOk" @handleCancel="handleCancel">
+      <a-form-item style="width: 70%;" label="类型名">
+        <a-input v-model:value="value" />
+      </a-form-item>
+    </ShowModal>
   </div>
 </template>
 <script>
-import { defineComponent, inject, onBeforeMount } from 'vue'
+import { defineComponent, inject, onBeforeMount, ref } from 'vue'
 import MyTable from '../../components/MyTable.vue'
 import ShowModal from '../../components/ShowModal.vue'
 const columns = [
   {
-    title: 'Name',
+    title: '类型名',
     dataIndex: 'name',
     key: 'name',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: '关联数量',
+    dataIndex: 'num',
+    key: 'num',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    slots: {
-      customRender: 'tags',
-    },
-  },
-  {
+    title: '是否启用',
+    dataIndex: 'status',
+    key: 'status',
+  },{
     title: 'Action',
     key: 'action',
-    dataIndex: 'action',
     slots: {
       customRender: 'action',
     },
-  },
-]
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-    action: [
-      {
-        name: '编辑',
-        even: 'edit',
-      },
-      {
-        name: '删除',
-        even: 'edit',
-      },
-      {
-        name: '查看',
-        even: 'edit',
-      },
-    ],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-    action: [
-      {
-        name: '编辑',
-        even: 'edit',
-      },
-      {
-        name: '删除',
-        even: 'edit',
-      },
-      {
-        name: '查看',
-        even: 'read',
-      },
-    ],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-    action: [
-      {
-        name: '编辑',
-        even: 'edit',
-      },
-      {
-        name: '删除',
-        even: 'edit',
-      },
-      {
-        name: '查看',
-        even: 'edit',
-      },
-    ],
   },
 ]
 const actionClick = (key) => {
@@ -112,23 +41,44 @@ const actionClick = (key) => {
 export default defineComponent({
   setup() {
     const http = inject('$http')
-    onBeforeMount(async () => {
-      await http.tag.getTag()
-    })
-    const addClick = () => {
+    const title = '添加类型'
+    const visible = ref(false)
+    const value = ref('')
+    const data = ref([])
+    const loading = ref(true)
+    const page = {}
+    const getType = async () => {
+      const res = await http.type.getType()
+      data.value = res.data.data
+      loading.value = false
+      page.pageSize = 10
+      page.total = res.data.total
+    }
+    onBeforeMount(getType)
+    const addClick = async () => {
       visible.value = true
     }
     const handleCancel = () => {
       visible.value = false
     }
-    const handleOk = () => {
+    const handleOk = async () => {
+      if (!value.value) {
+        return
+      }
+      const res = await http.type.addType({name: value.value})
+      console.log(res)
+      getType()
       visible.value = false
     }
     return {
       data,
       columns,
+      visible,
+      title,
+      value,
+      loading,
+      page,
       actionClick,
-      addClick,
       addClick,
       handleOk,
       handleCancel,
@@ -137,7 +87,7 @@ export default defineComponent({
 
   components: {
     MyTable,
-    ShowModal
+    ShowModal,
   },
 })
 </script>

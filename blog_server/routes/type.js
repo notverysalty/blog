@@ -6,7 +6,7 @@ const { Type, Tag } = require('../models')
 
 // 路由模块
 // 增加新类型
-router.get('/addType', async (ctx, next) => {
+router.post('/addType', async (ctx, next) => {
   try {
     const doc = await Type.findOne({ name: ctx.query.name })
     if (!doc) {
@@ -50,10 +50,12 @@ router.get('/removeType', async (ctx, next) => {
 router.get('/getType', async (ctx, next) => {
   try {
     const data = await Type.find(ctx.query.term).sort({ type_id: -1 }).skip(ctx.query.page).limit(ctx.query.num)
+    const total = await Type.find(ctx.query.term).count()
     ctx.status = 200
     ctx.body = {
       code: 200,
       data,
+      total,
       msg: '查询成功'
     }
   } catch (err) {

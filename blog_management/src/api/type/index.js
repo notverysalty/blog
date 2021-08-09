@@ -3,7 +3,7 @@ import { type } from '../api'
 
 export default {
   // 添加新类型
-  addTag (params) {
+  addType (params) {
     return request.post(type.addType, params)
   },
   // 删除类型
