@@ -6,15 +6,15 @@
     <a-form layout="horizontal" class="from" :model="formState" @finish="handleFinish" @finishFailed="handleFinishFailed">
       <a-form-item label="类型：">
         <a-select mode="multiple" :size="size" v-model:value="formState.type" style="width: 200px">
-          <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
-            {{ (i + 9).toString(36) + i }}
+          <a-select-option v-for="i in types" :key="i.name">
+            {{ i.name }}
           </a-select-option>
         </a-select>
       </a-form-item>
       <a-form-item label="标签：">
         <a-select mode="multiple" :size="size" v-model:value="formState.tags" style="width: 200px">
-          <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
-            {{ (i + 9).toString(36) + i }}
+          <a-select-option v-for="i in tags" :key="i.name">
+            {{ i.name }}
           </a-select-option>
         </a-select>
       </a-form-item>
@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import { defineComponent, reactive, inject } from 'vue'
+import { defineComponent, reactive, inject, onBeforeMount, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Editor from '@tinymce/tinymce-vue'
 
 export default defineComponent({
@@ -38,6 +39,10 @@ export default defineComponent({
       type:[],
       tags: []
     })
+    // 获取路由对象
+    const router = useRouter()
+    const tags = ref([])
+    const types = ref([])
     const init = {
       language_url: 'https://lab.uxfeel.com/node_modules/tinymce/langs/zh_CN.js',
       language: 'zh_CN',
@@ -50,18 +55,29 @@ export default defineComponent({
         success('data:image/jpeg;base64,' + blobInfo.base64())
       },
     }
+    // 获取http对象
+    const http = inject('$http')
+    onBeforeMount(async () => {
+      const tagres = await http.tag.getTag()
+      const typeres = await http.type.getType()
+      types.value = typeres.data.data
+      tags.value = tagres.data.data
+    })
     const clickHandle = async () => {
       if (!formState.title || !formState.body) {
         return
       }
-      const http = inject('$http')
+      console.log(formState)
       const res = await http.article.addArticle(formState)
       console.log(res.data)
-      this.$router.push({ name: 'articleList'})
+
+      router.push({ name: 'articleList'})
     }
     return {
       init,
       formState,
+      tags,
+      types,
       clickHandle,
     }
   },

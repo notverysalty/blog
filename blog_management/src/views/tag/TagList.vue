@@ -27,7 +27,8 @@ const columns = [
     title: '是否启用',
     dataIndex: 'status',
     key: 'status',
-  },{
+  },
+  {
     title: 'Action',
     key: 'action',
     slots: {
@@ -35,9 +36,6 @@ const columns = [
     },
   },
 ]
-const actionClick = (key) => {
-  console.log(key)
-}
 export default defineComponent({
   setup() {
     const http = inject('$http')
@@ -54,6 +52,20 @@ export default defineComponent({
       page.pageSize = 10
       page.total = res.data.total
     }
+    const actionClick = async (key, target) => {
+      let res = ''
+      switch (key) {
+        case 'edit':
+          break
+        case 'delete':
+          res = await http.tag.removeTag({ id: target.tag_id })
+          break
+        case 'read':
+          break
+      }
+      console.log(res)
+      getTag()
+    }
     onBeforeMount(getTag)
     const addClick = () => {
       visible.value = true
@@ -65,7 +77,7 @@ export default defineComponent({
       if (!value.value) {
         return
       }
-      const res = await http.tag.addTag({name: value.value})
+      const res = await http.tag.addTag({ name: value.value })
       console.log(res)
       getTag()
       visible.value = false

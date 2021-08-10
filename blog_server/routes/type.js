@@ -7,11 +7,12 @@ const { Type, Tag } = require('../models')
 // 路由模块
 // 增加新类型
 router.post('/addType', async (ctx, next) => {
+  const content = ctx.request.body
   try {
-    const doc = await Type.findOne({ name: ctx.query.name })
+    const doc = await Type.findOne({ name: content.name })
     if (!doc) {
       await new Type({
-        name: ctx.query.name
+        name: content.name
       }).save()
       ctx.status = 200
       ctx.body = {
@@ -29,7 +30,7 @@ router.post('/addType', async (ctx, next) => {
 })
 
 // 删除类型
-router.get('/removeType', async (ctx, next) => {
+router.delete('/removeType', async (ctx, next) => {
   try {
     await Type.deleteOne( {name: ctx.query.name })
     ctx.status = 200

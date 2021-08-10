@@ -12,13 +12,14 @@ const { Blogger } = require('../models')
 // 路由模块
 // 添加新用户
 router.post('/addUser', async (ctx, next) => {
+  const content = ctx.request.body
   try {
     let id = 0
     const doc = await Blogger.find({})
     if (doc.length !== 0) {
       id = doc.sort(numberSort('blogger_id'))[0].blogger_id + 1
     }
-    await new Blogger(Object.assign({}, ctx.query.body, { 'blogger_id': id, 'create_ time': localDate() })).save()
+    await new Blogger(Object.assign({}, content.body, { 'blogger_id': id, 'create_ time': localDate() })).save()
     ctx.status = 200
     ctx.body = {
       code: 200,
@@ -34,7 +35,7 @@ router.post('/addUser', async (ctx, next) => {
 })
 
 // 删除用户
-router.get('removeBlogger', async (ctx, next) => {
+router.delete('removeBlogger', async (ctx, next) => {
   try {
     await Blogger.deleteOne({ blogger_id: ctx.query.id })
     ctx.status = 200
@@ -53,9 +54,10 @@ router.get('removeBlogger', async (ctx, next) => {
 
 // 登录，并设置cookie
 router.post('/login', async (ctx, next) => {
+  const content = ctx.request.body
   try {
-    let nickname = ctx.query.nickname
-    let password = ctx.query.password
+    let nickname = content.nickname
+    let password = content.password
     // 验证账号密码格式
     if (!nickname || !password) {
       ctx.status = 200

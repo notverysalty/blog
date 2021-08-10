@@ -19,6 +19,7 @@ router.post('/addArticle', async (ctx, next) => {
   // tags 文章标签
   // author 文章作者
   // article_type 文章类型
+  const content = ctx.request.body
   try {
     let doc = await Article.find({})
     if (doc.length != 0) {
@@ -26,15 +27,15 @@ router.post('/addArticle', async (ctx, next) => {
     }
     await new Article({
       article_id: id,
-      title: ctx.query.title,
-      body: ctx.query.body,
-      tags: ctx.query.tags,
-      author: ctx.query.author,
-      type: ctx.query.type,
+      title: content.title,
+      body: content.body,
+      tags: content.tags,
+      author: content.author,
+      type: content.type,
       create_time: localDate(),
     }).save()
-    await updepict(Tag, id, true, ctx.query.tags, 1)
-    await updepict(Type, id, true, ctx.query.type, 1)
+    await updepict(Tag, id, true, content.tags, 1)
+    await updepict(Type, id, true, content.type, 1)
     ctx.status = 200
     ctx.body = {
       code: 200,
@@ -53,7 +54,7 @@ router.post('/addArticle', async (ctx, next) => {
 })
 
 // 删除博文
-router.get('/removeArticle', async (ctx, next) => {
+router.delete('/removeArticle', async (ctx, next) => {
   // 文章id
   let id = ctx.query.id
   try {
@@ -76,14 +77,15 @@ router.get('/removeArticle', async (ctx, next) => {
 })
 
 // 修改博客
-router.post('/updateArticle', async (ctx, next) => {
+router.put('/updateArticle', async (ctx, next) => {
+  const content = ctx.request.body
   try {
     await Article.updateOne({ article_id: ctx.query.body.id }, ctx.query.body)
-    let id = ctx.query.body.id
-    await updepict(Tag, id, false, ctx.query.oldtags, -1)
-    await updepict(Type, id, false, ctx.query.oldtype, -1)
-    await updepict(Tag, id, true, ctx.query.body.tags, 1)
-    await updepict(Type, id, true, ctx.query.body.type, 1)
+    let id = content.id
+    await updepict(Tag, id, false, content.oldtags, -1)
+    await updepict(Type, id, false, content.oldtype, -1)
+    await updepict(Tag, id, true, content.tags, 1)
+    await updepict(Type, id, true, content.type, 1)
     ctx.status = 200
     ctx.body = {
       code: 200,

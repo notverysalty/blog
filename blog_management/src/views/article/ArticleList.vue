@@ -43,23 +43,35 @@ const columns = [
     },
   },
 ]
-const actionClick = (key) => {
-  console.log(key)
-}
 export default defineComponent({
   setup() {
     const http = inject('$http')
     const loading = ref(true)
     const page = {}
     const data = ref([])
-    onBeforeMount(async () => {
+    const onload = async () => {
       const res = await http.article.getAssignedArticle({})
       data.value = res.data.data
       console.log(data, 11111111)
       loading.value = false
       page.pageSize = 10
       page.total = res.data.total
-    })
+    }
+    onBeforeMount(onload)
+    const actionClick = async (key, target) => {
+      let res = ''
+      switch (key) {
+        case 'edit':
+          break
+        case 'delete':
+          res = await http.article.removeArticle({id: target.article_id})
+          break
+        case 'read':
+          break
+      }
+      console.log(res)
+      onload()
+    }
     return {
       data,
       columns,

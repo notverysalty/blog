@@ -7,11 +7,12 @@ const { Tag } = require('../models')
 // 路由模块
 // 添加新标签
 router.post('/addTag', async (ctx, next) => {
+  const content = ctx.request.body
   try {
-    const doc = await Tag.findOne({ name: ctx.query.name })
+    const doc = await Tag.findOne({ name: content.name })
     if (!doc) {
       await new Tag({
-        name: ctx.query.name
+        name: content.name
       }).save()
       ctx.status = 200
       ctx.body = {
@@ -35,7 +36,7 @@ router.post('/addTag', async (ctx, next) => {
 })
 
 // 删除标签
-router.get('/removeTag', async (ctx, next) => {
+router.delete('/removeTag', async (ctx, next) => {
   try {
     await Tag.deleteOne({ name: ctx.query.name })
     ctx.status = 200

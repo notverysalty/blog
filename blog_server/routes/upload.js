@@ -33,17 +33,18 @@ const writeFile = (path, data) => {
 
 // 上传图片
 router.post('/img', upload.single('img'), async (ctx, next) => {
+  const content = ctx.request.body
   try {
     // 读取成功
-    const data = await readFile(ctx.query.file.path)
+    const data = await readFile(content.file.path)
     // 声明图片名字为时间戳和随机数拼接成的，尽量确保唯一
     let time = Date.now() + parseInt(Math.random() * 999) + parseInt(Math.random() * 5555)
     // 拓展名
-    let extname = ctx.query.file.mimetype.split('/')[1]
+    let extname = content.file.mimetype.split('/')[1]
     // 拼接成图片名
     let keepname = time + '.' + extname
     await writeFile(path.join(__dirname, '../public/img/' + keepname), data)
-    fs.unlink(ctx.query.file.path, (err) => {
+    fs.unlink(content.file.path, (err) => {
       if (err) {
         ctx.status = 200
         ctx.body = {
@@ -80,7 +81,7 @@ router.post('/img', upload.single('img'), async (ctx, next) => {
 })
 
 // 删除图片
-router.get('/removeImg', async (ctx, next) => {
+router.delete('/removeImg', async (ctx, next) => {
   fs.unlink(path.join(__dirname, '../public/img/' + ctx.query.url), err => {
     if (err) {
       ctx.status = 200

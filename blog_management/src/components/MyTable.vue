@@ -17,8 +17,8 @@
           </a-tag>
         </span>
       </template>
-      <template #action>
-        <span @click="actionClick">
+      <template #action="{ text }">
+        <span @click="actionClick($event, text)">
           <a id="edit">编辑</a>
           <a-divider type="vertical" />
           <a id="delete">删除</a>
@@ -51,8 +51,8 @@ export default defineComponent({
   },
   setup(props, context) {
     console.log(props.loading)
-    const actionClick = (e) => {
-      context.emit('actionClick', e.target.id)
+    const actionClick = (e, target) => {
+      context.emit('actionClick', e.target.id, target)
     }
     const addClick = () => {
       context.emit('addClick')
