@@ -17,9 +17,8 @@
                 <a-menu-item key="1">
                   <UserOutlined />个人中心
                 </a-menu-item>
-                <a-menu-item key="2">
-                  <ExportOutlined />
-                  <router-link :to="{name: 'login'}">退出 </router-link>
+                <a-menu-item key="2" @click="exitHandle">
+                  <ExportOutlined />退出
                 </a-menu-item>
               </a-menu>
             </template>
@@ -115,7 +114,8 @@ import {
   ExportOutlined,
 } from '@ant-design/icons-vue'
 import { defineComponent, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import util from '../util/util'
 export default defineComponent({
   components: {
     UserOutlined,
@@ -125,8 +125,8 @@ export default defineComponent({
   },
 
   setup() {
-    const router = useRoute()
-    const selectedKeys2 = ref([router.name])
+    const route = useRoute()
+    const selectedKeys2 = ref([route.name])
     const menus = ['article', 'type', 'tag']
     const getCurRoute = (route) => {
       for (let i = 0; i < menus.length; i++) {
@@ -135,19 +135,25 @@ export default defineComponent({
         }
       }
     }
-    const openKeys = ref([getCurRoute(router.name)])
+    const openKeys = ref([getCurRoute(route.name)])
     watch(
-      router,
+      route,
       (newValue) => {
         selectedKeys2.value = [newValue.name]
         openKeys.value.push(getCurRoute(newValue.name))
       }
     )
+    const exitHandle = () => {
+      const router = useRouter()
+      util.localClear()
+      router.replace({name: 'login'})
+    }
     return {
       selectedKeys1: ref(['2']),
       selectedKeys2,
       collapsed: ref(false),
-      openKeys
+      openKeys,
+      exitHandle
     }
   },
 })

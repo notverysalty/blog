@@ -38,6 +38,7 @@ const columns = [
 ]
 export default defineComponent({
   setup() {
+    // 定义变量
     const http = inject('$http')
     const title = '添加类型'
     const visible = ref(false)
@@ -45,6 +46,7 @@ export default defineComponent({
     const data = ref([])
     const loading = ref(true)
     const page = {}
+    // 定义方法
     const getType = async () => {
       const res = await http.type.getType()
       data.value = res.data.data

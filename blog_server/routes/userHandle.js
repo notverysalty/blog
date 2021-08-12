@@ -19,7 +19,7 @@ router.post('/addUser', async (ctx, next) => {
     if (doc.length !== 0) {
       id = doc.sort(numberSort('blogger_id'))[0].blogger_id + 1
     }
-    await new Blogger(Object.assign({}, content.body, { 'blogger_id': id, 'create_ time': localDate() })).save()
+    await new Blogger(Object.assign({}, content, { 'blogger_id': id, 'create_ time': localDate() })).save()
     ctx.status = 200
     ctx.body = {
       code: 200,
@@ -35,7 +35,7 @@ router.post('/addUser', async (ctx, next) => {
 })
 
 // 删除用户
-router.delete('removeBlogger', async (ctx, next) => {
+router.delete('/removeBlogger', async (ctx, next) => {
   try {
     await Blogger.deleteOne({ blogger_id: ctx.query.id })
     ctx.status = 200
@@ -69,10 +69,10 @@ router.post('/login', async (ctx, next) => {
     // 查找用户
     const num = await Blogger.countDocuments({ nickname, password })
     if (num > 0) {
-      ctx.header('token', jwt.createToken({ nickname }, 3600))
       ctx.status = 200
       ctx.body = {
         code: 200,
+        data: jwt.setToken({ nickname }, 3600),
         msg: '登陆成功'
       }
     } else {
@@ -94,12 +94,12 @@ router.post('/login', async (ctx, next) => {
 // 解析token
 router.get('/analyzingToken', async (ctx, next) => {
   let token = ctx.query.token
-  jwt.analyzingToken(token, (err, doc) => {
+  jwt.verifyToken(token, (err, doc) => {
     if (err) {
       ctx.status = 200
       ctx.body = {
         code: 0,
-        msg: '解析失败'
+        msg: '登录过期'
       }
     } else {
       ctx.status = 200

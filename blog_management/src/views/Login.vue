@@ -8,7 +8,7 @@
         @finishFailed="handleFinishFailed"
       >
         <a-form-item>
-          <a-input v-model:value="formState.user" placeholder="Username">
+          <a-input v-model:value="formState.nickname" placeholder="Username">
             <template #prefix
               ><UserOutlined style="color: rgba(0, 0, 0, 0.25)"
             /></template>
@@ -31,7 +31,7 @@
             html-type="submit"
             shape="round"
             block
-            :disabled="formState.user === '' || formState.password === ''"
+            :disabled="formState.nickname === '' || formState.password === ''"
           >
             Log in
           </a-button>
@@ -43,16 +43,24 @@
 
 <script>
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-import { defineComponent, reactive } from "vue";
+import { defineComponent, inject, reactive } from "vue";
+import { useRouter } from 'vue-router'
+import util from '../util/util'
 export default defineComponent({
   setup() {
     const formState = reactive({
-      user: "",
+      nickname: "",
       password: "",
     });
-
-    const handleFinish = (values) => {
-      console.log(values, formState);
+    const http = inject('$http')
+    const router = useRouter()
+    const handleFinish = async () => {
+     const { data } = await http.login.login(formState)
+     util.setLocal('token', data.data)
+     console.log(data)
+     if (data) {
+      router.push({name: 'home'})
+     }
     };
 
     const handleFinishFailed = (errors) => {

@@ -34,7 +34,7 @@ const BloggerScema = new Schema({
     },
     avatar: {
         type: String,
-        default: 'public/img/default.jpeg'
+        default: 'public/images/default.jpg'
     },
     // 个性签名
     bio: {

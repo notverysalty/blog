@@ -1,4 +1,6 @@
 import axios from 'axios'
+import router from '../router'
+import util from '../util/util'
 
 // 错误信息
 const showStatus = (status) => {
@@ -50,7 +52,7 @@ const service = axios.create({
       'Content-Type': 'application/json;charset=utf-8'
     },
     'X-Requested-With': 'XMLHttpRequest',
-    'token': localStorage.getItem('token') || ''
+    'Authorization':"Bearer " + util.getLocal('token') || ''
   },
   withCredentials: false,
   timeout: 30000,
@@ -71,6 +73,15 @@ service.interceptors.response.use(response => {
   let msg = ''
   if (status < 200 || status > 300) {
     msg = showStatus(status)
+    if (status === 401) {
+      util.localClear()
+      router.replace({
+        name: 'login',
+        query: {
+          redirect: router.currentRoute.fullPath
+        }
+      })
+    }
     response.data.msg = msg
   }
   return response

@@ -30,7 +30,6 @@
 import { defineComponent, reactive, inject, onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Editor from '@tinymce/tinymce-vue'
-
 export default defineComponent({
   setup() {
     const formState = reactive({
@@ -41,10 +40,12 @@ export default defineComponent({
     })
     // 获取路由对象
     const router = useRouter()
+    console.log(router)
     const tags = ref([])
     const types = ref([])
     const init = {
       language_url: 'https://lab.uxfeel.com/node_modules/tinymce/langs/zh_CN.js',
+      // language_url: '../../../public/langs/zh_CN.js',
       language: 'zh_CN',
       height: '40vh',
       plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
