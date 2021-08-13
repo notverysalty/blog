@@ -51,8 +51,7 @@ const service = axios.create({
     post: {
       'Content-Type': 'application/json;charset=utf-8'
     },
-    'X-Requested-With': 'XMLHttpRequest',
-    'Authorization':"Bearer " + util.getLocal('token') || ''
+    'X-Requested-With': 'XMLHttpRequest'
   },
   withCredentials: false,
   timeout: 30000,
@@ -62,7 +61,10 @@ const service = axios.create({
 })
 
 // 请求拦截器
-service.interceptors.request.use(response => response, err => {
+service.interceptors.request.use(config => {
+  config.headers['Authorization'] = "Bearer " + util.getLocal('token')
+  return config
+}, err => {
   err.data.msg = '服务器异常，请联系管理员！'
   return Promise.resolve(err)
 })

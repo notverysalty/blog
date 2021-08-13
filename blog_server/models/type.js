@@ -21,10 +21,9 @@ const TypeSchema = new Schema({
   list: Array,
   // 状态
   status: {
-    type: Number,
+    type: Boolean,
     // 0禁用，1启用
-    enum: [0, 1],
-    default: 1
+    default: true
   }
 })
 const Type = mongoose.model('type', TypeSchema)

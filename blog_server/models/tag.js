@@ -21,10 +21,8 @@ const TagSchema = new Schema({
   // 关联文章ID数组
   list: Array,
   status: {
-    type: Number,
-    // 0禁用，1启用
-    enum: [0, 1],
-    default: 1
+    type: Boolean,
+    default: true
   }
 })
 const Tag = mongoose.model('tag', TagSchema)

@@ -53,6 +53,25 @@ router.delete('/removeTag', async (ctx, next) => {
   }
 })
 
+// 修改标签
+router.put('/updateTag', async (ctx, next) => {
+  const content = ctx.request.body
+  try {
+    await Tag.updateOne({ _id: content._id }, content)
+    ctx.status = 200
+    ctx.body = {
+      code: 200,
+      msg: '修改成功',
+    }
+  } catch (err) {
+    ctx.status = 500
+    ctx.body = {
+      code: 500,
+      msg: err,
+    }
+  }
+})
+
 // 获取指定数量标签
 router.get('/getTag', async (ctx, next) => {
   try {

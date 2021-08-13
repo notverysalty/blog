@@ -47,6 +47,25 @@ router.delete('/removeType', async (ctx, next) => {
   }
 })
 
+// 修改类型
+router.put('/updateType', async (ctx, next) => {
+  const content = ctx.request.body
+  try {
+    await Type.updateOne({ _id: content._id }, content)
+    ctx.status = 200
+    ctx.body = {
+      code: 200,
+      msg: '修改成功',
+    }
+  } catch (err) {
+    ctx.status = 500
+    ctx.body = {
+      code: 500,
+      msg: err,
+    }
+  }
+})
+
 // 获取所有类型
 router.get('/getType', async (ctx, next) => {
   try {

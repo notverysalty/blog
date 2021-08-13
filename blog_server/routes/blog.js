@@ -80,7 +80,7 @@ router.delete('/removeArticle', async (ctx, next) => {
 router.put('/updateArticle', async (ctx, next) => {
   const content = ctx.request.body
   try {
-    await Article.updateOne({ article_id: ctx.query.body.id }, ctx.query.body)
+    await Article.updateOne({ article_id: content.id }, content)
     let id = content.id
     await updepict(Tag, id, false, content.oldtags, -1)
     await updepict(Type, id, false, content.oldtype, -1)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MyTable title="类型列表" :loading="loading" :pagination="page" :isButton="true" :data="data" :columns="columns" @actionClick="actionClick" @addClick="addClick" />
+    <MyTable title="类型列表" :loading="loading" :pagination="page" :isButton="true" :data="data" :columns="columns" @actionClick="actionClick" @addClick="addClick" :rowEdit="true" />
     <ShowModal :title="title" :visible="visible" @handleOk="handleOk" @handleCancel="handleCancel">
       <a-form-item style="width: 70%;" label="类型名">
         <a-input v-model:value="value" />
@@ -15,8 +15,11 @@ import ShowModal from '../../components/ShowModal.vue'
 const columns = [
   {
     title: '类型名',
-    dataIndex: 'name',
     key: 'name',
+    width: '25%',
+    slots: {
+      customRender: 'name',
+    },
   },
   {
     title: '关联数量',
@@ -25,8 +28,10 @@ const columns = [
   },
   {
     title: '是否启用',
-    dataIndex: 'status',
     key: 'status',
+    slots: {
+      customRender: 'status',
+    },
   },
   {
     title: 'Action',
@@ -58,9 +63,10 @@ export default defineComponent({
       let res = ''
       switch (key) {
         case 'edit':
+          res = await http.type.updateType(target)
           break
         case 'delete':
-          res = await http.type.removeType({ id: target.type_id })
+          res = await http.type.removeType({ name: target.name })
           break
         case 'read':
           break

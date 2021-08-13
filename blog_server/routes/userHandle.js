@@ -72,7 +72,7 @@ router.post('/login', async (ctx, next) => {
       ctx.status = 200
       ctx.body = {
         code: 200,
-        data: jwt.setToken({ nickname }, 3600),
+        data: jwt.setToken({ nickname }, 86400),
         msg: '登陆成功'
       }
     } else {

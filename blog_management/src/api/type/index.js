@@ -3,15 +3,19 @@ import { type } from '../api'
 
 export default {
   // 添加新类型
-  addType (params) {
+  addType(params) {
     return request.post(type.addType, params)
   },
   // 删除类型
-  removeType (params) {
+  removeType(params) {
     return request.delete(type.removeType, params)
   },
+  // 修改标签
+  updateType(params) {
+    return request.put(type.updateType, params)
+  },
   // 获取指定数量类型
-  getType (params) {
+  getType(params) {
     return request.get(type.getType, params)
-  }
+  },
 }

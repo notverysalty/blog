@@ -20,6 +20,8 @@ const tag = {
   addTag: '/tag/addTag',
   // 删除标签
   removeTag: '/tag/removeTag',
+  // 修改标签
+  updateTag: '/tag/updateTag',
   // 获取指定数量标签
   getTag: '/tag/getTag'
 }
@@ -30,6 +32,8 @@ const type = {
   addType: '/type/addType',
   // 删除类型
   removeType: '/type/removeType',
+  // 修改类型
+  updateType: '/type/updateType',
   // 获取指定数量类型
   getType: '/type/getType'
 }
