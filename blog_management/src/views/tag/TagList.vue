@@ -12,6 +12,7 @@
 import { defineComponent, inject, onBeforeMount, ref } from 'vue'
 import MyTable from '../../components/MyTable.vue'
 import ShowModal from '../../components/ShowModal.vue'
+import { message } from 'ant-design-vue'
 const columns = [
   {
     title: '标签名',
@@ -65,6 +66,7 @@ export default defineComponent({
           break
         case 'delete':
           res = await http.tag.removeTag({ name: target.name })
+          message.success('删除成功')
           break
         case 'read':
           break
@@ -84,6 +86,7 @@ export default defineComponent({
         return
       }
       const res = await http.tag.addTag({ name: value.value })
+      message.success('保存成功')
       console.log(res)
       getTag()
       visible.value = false

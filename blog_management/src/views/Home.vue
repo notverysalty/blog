@@ -126,6 +126,7 @@ export default defineComponent({
 
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const selectedKeys2 = ref([route.name])
     const menus = ['article', 'type', 'tag']
     const getCurRoute = (route) => {
@@ -144,8 +145,8 @@ export default defineComponent({
       }
     )
     const exitHandle = () => {
-      const router = useRouter()
       util.localClear()
+      console.log(router)
       router.replace({name: 'login'})
     }
     return {

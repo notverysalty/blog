@@ -24,6 +24,16 @@ const routes = [
         component: () => import('../views/article/AddArticle.vue'),
       },
       {
+        path: 'editArticle/:id',
+        name: 'editArticle',
+        component: () => import('../views/article/EditArticle.vue'),
+      },
+      {
+        path: 'preview/:id',
+        name: 'preview',
+        component: () => import('../views/article/Preview.vue'),
+      },
+      {
         path: 'tagList',
         name: 'tagList',
         component: () => import('../views/tag/TagList.vue'),

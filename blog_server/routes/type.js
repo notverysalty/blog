@@ -69,8 +69,8 @@ router.put('/updateType', async (ctx, next) => {
 // 获取所有类型
 router.get('/getType', async (ctx, next) => {
   try {
-    const data = await Type.find(ctx.query.term).sort({ type_id: -1 }).skip(ctx.query.page).limit(ctx.query.num)
-    const total = await Type.find(ctx.query.term).count()
+    const data = await Type.find(ctx.query).sort({ type_id: -1 }).skip(ctx.query.page).limit(ctx.query.num)
+    const total = await Type.find(ctx.query).count()
     ctx.status = 200
     ctx.body = {
       code: 200,

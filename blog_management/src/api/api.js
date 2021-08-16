@@ -45,7 +45,9 @@ const login = {
   // 删除用户
   removeBlogger: '/user/removeBlogger',
   // 登录
-  login: '/user/login'
+  login: '/user/login',
+  // 获取登录验证码
+  verify: '/user/verify'
 }
 
 // 上传

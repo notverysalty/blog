@@ -13,5 +13,9 @@ export default {
   // 登录
   login (params) {
     return request.post(login.login, params)
+  },
+  // 获取登录验证码
+  verify (params) {
+    return request.get(params)
   }
 }
