@@ -19,7 +19,8 @@
         <a-form-item>
           <a-input v-model:value="formState.verify" placeholder="请输入验证码">
             <template #suffix>
-              <img :src="formState.verify" alt="" width="70" height="20">
+              <!-- <img v-html="vImg" alt="" width="70" height="20"> -->
+              <span @click="getVerify" v-html="vImg"></span>
             </template>
           </a-input>
         </a-form-item>
@@ -35,7 +36,7 @@
 
 <script>
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
-import { defineComponent, inject, reactive } from 'vue'
+import { defineComponent, inject, onBeforeMount, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import util from '../util/util'
@@ -46,6 +47,7 @@ export default defineComponent({
       password: '',
       verify: ''
     })
+    const vImg = ref('')
     const http = inject('$http')
     const router = useRouter()
     const getVerify = async () => {
@@ -53,15 +55,21 @@ export default defineComponent({
       if (res.data.code !== 200) {
         message.error('获取验证码失败')
       }
-      formState.verify = res.data.data
+      vImg.value = res.data.data
     }
+    onBeforeMount (() => {
+      getVerify()
+    })
     const handleFinish = async () => {
       const { data } = await http.login.login(formState)
       util.setLocal('token', data.data)
       console.log(data)
-      if (data) {
-        router.push({ name: 'home' })
+      if (data.code !== 200) {
+        message.error(data.msg)
+        getVerify()
+        return
       }
+      router.push({ name: 'home' })
     }
 
     const handleFinishFailed = (errors) => {
@@ -70,9 +78,10 @@ export default defineComponent({
 
     return {
       formState,
-      vImg,
       handleFinish,
+      vImg,
       handleFinishFailed,
+      getVerify
     }
   },
 

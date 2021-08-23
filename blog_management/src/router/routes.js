@@ -50,6 +50,10 @@ const routes = [
     name: 'login',
     component: Login,
   },
+  {
+    path: '/',
+    redirect: {name: 'articleList'}
+  }
   // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 

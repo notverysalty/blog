@@ -60,12 +60,12 @@ router.delete('/removeBlogger', async (ctx, next) => {
 })
 
 // 获取登录验证码
-router.get('/virify', async (ctx, next) => {
+router.get('/verify', async (ctx, next) => {
   const cap = svgCaptcha.create({
     size: 4, // 验证码长度
-    width: 160,
-    height: 60,
-    fontSize: 50,
+    width: 100,
+    height: 30,
+    fontSize: 40,
     ignoreChars: '0oO1ilI', // 验证码字符中排除 0o1i
     noise: 2, // 干扰线条的数量
     color: true, // 验证码的字符是否有颜色，默认没有，如果设定了背景，则默认有
@@ -74,7 +74,6 @@ router.get('/virify', async (ctx, next) => {
   const img = cap.data // 验证码
   const text = cap.text.toLowerCase() //忽略大小写
   ctx.session.verify = text // 保存到session
-
   ctx.response.type = 'image/svg+xml'
   ctx.status = 200
   ctx.body = {
@@ -91,12 +90,14 @@ router.post('/login', async (ctx, next) => {
     let nickname = content.nickname
     let password = content.password
     const verify = content.verify.toLowerCase()
+    console.log(verify, ctx.session)
     ctx.status = 200
     if (verify !== verifyBase) {
       ctx.body = {
         code: 0,
         msg: '验证码错误',
       }
+      return
     }
     // 验证账号密码格式
     if (!nickname || !password) {

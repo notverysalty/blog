@@ -53,7 +53,7 @@ const service = axios.create({
     },
     'X-Requested-With': 'XMLHttpRequest'
   },
-  withCredentials: false,
+  withCredentials: true,
   timeout: 30000,
   validateStatus () {
     return true

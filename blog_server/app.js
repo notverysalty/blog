@@ -30,13 +30,13 @@ app.use(
       /*if (ctx.url === '/cors') {
           return "*"; // 允许来自所有域名请求
       }*/
-      return '*'
-      // return 'http://localhost:8080';
+      // return '*'
+      return 'http://localhost:8080';
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,
     credentials: true,
-    allowMethods: ['GET', 'POST', 'DELETE', 'PUT'], //设置允许的HTTP请求类型
+    allowMethods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'], //设置允许的HTTP请求类型
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
   })
 )
@@ -58,8 +58,9 @@ const CONFIG = {
    overwrite: true,  //是否可以overwrite    (默认default true)
    httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
    signed: true,   //签名默认true
-   rolling: false,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+   rolling: true,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
    renew: false,  //(boolean) renew session when session is nearly expired,
+  //  sameSite: 'none'
 }
 app.use(session(CONFIG, app))
 
@@ -86,7 +87,7 @@ app.use(async (ctx, next) => {
 // 对路由进行token验证
 app.use(koaJwt({ secret: 'yisakomi'}).unless({
   // login接口不需要验证
-  path: [/^\/user\/login/]
+  path: [/^\/user/]
 }))
 
 // routes

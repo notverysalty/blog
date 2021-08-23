@@ -16,6 +16,6 @@ export default {
   },
   // 获取登录验证码
   verify (params) {
-    return request.get(params)
+    return request.get(login.verify, params)
   }
 }
