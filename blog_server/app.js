@@ -87,9 +87,10 @@ app.use(async (ctx, next) => {
 // 对路由进行token验证
 app.use(koaJwt({ secret: 'yisakomi'}).unless({
   // login接口不需要验证
-  path: [/^\/user/]
+  path: [/^\/api\/user/]
 }))
 
+router.prefix('/api')
 // routes
 app.use(router.routes(), router.allowedMethods())
 

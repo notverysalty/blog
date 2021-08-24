@@ -46,7 +46,7 @@ const showStatus = (status) => {
 }
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '//api' : 'http://127.0.0.1:3000',
+  baseURL: process.env.NODE_ENV === 'production' ? 'http://39.101.206.231/api' : 'http://localhost:3000/api',
   headers: {
     post: {
       'Content-Type': 'application/json;charset=utf-8'
