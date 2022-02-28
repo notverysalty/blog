@@ -19,6 +19,19 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  .footer {
+    background-color: white;
+    .footer-wrap {
+      .copyright {
 
+      }
+      .info {
+        a {
+          color: $main-color;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 </style>
