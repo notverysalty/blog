@@ -16,7 +16,7 @@ export default defineComponent({
     },
     height: {
       type: String,
-      default: '5rem'
+      default: '6rem'
     }
   },
   setup() {
@@ -29,6 +29,7 @@ export default defineComponent({
   .card {
     border-radius: .5rem;
     background-color: white;
+    box-shadow: 2px;
     padding: 1rem;
   }
 </style>

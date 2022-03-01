@@ -1,41 +1,39 @@
 <template>
-  <section class="tag">
-    <article>
-      {{title}}
-    </article>  
-  </section>    
+  <div class="tag" :style="{backgroundColor: bgColor, color: color, border: '1px solid ' + color}">
+      {{ title }}
+  </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
     bgColor: {
       type: String,
-      required: true
-    },
-    bdColor: {
-      type: String,
-      required: true
+      default: 'white'
     },
     color: {
       type: String,
-      required: true
+      default: 'white',
     },
     title: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  setup() {
-    
-  },
-})
+  setup() {},
+});
 </script>
 
 <style lang="scss" scoped>
-  .tag {
-    
-  }
+.tag {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 1.4rem;
+  line-height: 0.5rem;
+  margin-right: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.3rem;
+}
 </style>

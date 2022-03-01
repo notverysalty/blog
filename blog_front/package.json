@@ -15,7 +15,7 @@
     "sass-loader": "10",
     "sass-resources-loader": "^2.2.4",
     "style-loader": "^3.2.1",
-    "vue": "^3.0.0",
+    "vue": "3.2.4",
     "vue-axios": "^3.2.5",
     "vue-router": "4"
   },

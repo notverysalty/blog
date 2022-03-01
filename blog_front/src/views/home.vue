@@ -1,38 +1,178 @@
 <template>
-  <header>
-    <Head />
-  </header>
-  <main>
-    <CardWrap title="hh" date="hh" :tags="[]"></CardWrap>
-    <!-- <router-view></router-view> -->
-  </main>
-  <footer class="footer">
-    <Foot />
-  </footer>
+  <div class="home">
+    <div class="content">
+      <CardWrap
+        class="item"
+        v-for="article in articles"
+        :key="article.title"
+        :title="article.title"
+        :date="article.date"
+        :tags="article.tags"
+      ></CardWrap>
+    </div>
+    <div class="slider">
+      <div></div>
+      <div>
+        <el-carousel height="200px" direction="vertical" :autoplay="false">
+          <el-carousel-item v-for="item in 4" :key="item">
+            <h3>{{ item }}</h3>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import Head from '../layout/head.vue'
-import Foot from '../layout/foot.vue'
-import CardWrap from '../components/index/card-wrap.vue'
-export default defineComponent({
-  setup () {
+import { defineComponent } from "vue";
 
+import CardWrap from "../components/index/card-wrap.vue";
+export default defineComponent({
+  setup() {
+    const articles = [
+      {
+        title: "关于我的博客",
+        date: "2022-3-1",
+        tags: [
+          {
+            name: "js",
+            color: "red",
+          },
+          {
+            name: "html",
+            color: "#ccc",
+          },
+          {
+            name: "css",
+            color: "green",
+          },
+          {
+            name: "jq",
+            color: "yellow",
+          },
+        ],
+      },
+      {
+        title: "关于我的博客",
+        date: "2022-3-1",
+        tags: [
+          {
+            name: "js",
+            color: "red",
+          },
+          {
+            name: "html",
+            color: "#ccc",
+          },
+          {
+            name: "css",
+            color: "green",
+          },
+          {
+            name: "jq",
+            color: "yellow",
+          },
+        ],
+      },
+      {
+        title: "关于我的博客",
+        date: "2022-3-1",
+        tags: [
+          {
+            name: "js",
+            color: "red",
+          },
+          {
+            name: "html",
+            color: "#ccc",
+          },
+          {
+            name: "css",
+            color: "green",
+          },
+          {
+            name: "jq",
+            color: "yellow",
+          },
+        ],
+      },
+      {
+        title: "关于我的博客",
+        date: "2022-3-1",
+        tags: [
+          {
+            name: "js",
+            color: "red",
+          },
+          {
+            name: "html",
+            color: "#ccc",
+          },
+          {
+            name: "css",
+            color: "green",
+          },
+          {
+            name: "jq",
+            color: "yellow",
+          },
+        ],
+      },
+      {
+        title: "关于我的博客",
+        date: "2022-3-1",
+        tags: [
+          {
+            name: "js",
+            color: "red",
+          },
+          {
+            name: "html",
+            color: "#ccc",
+          },
+          {
+            name: "css",
+            color: "green",
+          },
+          {
+            name: "jq",
+            color: "yellow",
+          },
+        ],
+      },
+    ];
+    return {
+      articles,
+    };
   },
   components: {
-    Head,
-    Foot,
-    CardWrap
-  }
-})
+    CardWrap,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-  .footer {
+.home {
+  margin-top: 1.2rem;
+  box-sizing: border-box;
+  padding: 0 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .content {
+    width: 75%;
+    .item {
+      margin-bottom: 1.2rem;
+    }
+  }
+  .slider {
+    width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+    > div {
+      flex: 1;
+    }
   }
+}
 </style>

@@ -21,6 +21,7 @@ export default defineComponent({
 
 <style lang="scss">
   .footer {
+    box-sizing: border-box;
     background-color: white;
     .footer-wrap {
       .copyright {
