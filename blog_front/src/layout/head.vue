@@ -63,11 +63,16 @@
   .head {
     padding: 0.8rem 0;
     display: flex;
-    background-color: white;
+    background-color: rgba($color: white, $alpha: 0.8);
     box-sizing: border-box;
-
+    position: fixed;
+    z-index: 1000;
     .logo {
-      padding-left: 2rem;
+      padding-left: 3rem;
+      height: 2rem;
+      line-height: 2rem;
+      font-size: 1.3rem;
+      font-weight: 400;
     }
 
     .home-link {

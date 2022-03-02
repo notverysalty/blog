@@ -65,6 +65,8 @@ export default defineComponent({
   }
   .date {
     color: gray;
+    padding-left: .3rem;
+    padding-bottom: .1rem;
     font-size: 0.8rem;
   }
   .tags {

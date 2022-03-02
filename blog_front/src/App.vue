@@ -1,8 +1,8 @@
 <template>
-  <header>
+  <header class="head">
     <Head />
   </header>
-  <main>
+  <main class="main">
     <router-view></router-view>
   </main>
   <footer class="footer">
@@ -34,6 +34,13 @@ a {
 }
 .selected {
   border-bottom: 2px solid green;
+}
+.head {
+  width: 100%;
+  height: 4rem;
+}
+.main {
+  // margin-top: 3rem;
 }
 .footer {
   display: flex;

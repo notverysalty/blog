@@ -1,23 +1,26 @@
 <template>
   <div class="home">
-    <div class="content">
-      <CardWrap
-        class="item"
-        v-for="article in articles"
-        :key="article.title"
-        :title="article.title"
-        :date="article.date"
-        :tags="article.tags"
-      ></CardWrap>
-    </div>
-    <div class="slider">
-      <div></div>
-      <div>
-        <el-carousel height="200px" direction="vertical" :autoplay="false">
-          <el-carousel-item v-for="item in 4" :key="item">
-            <h3>{{ item }}</h3>
-          </el-carousel-item>
-        </el-carousel>
+    <div class="banner"></div>
+    <div class="context">
+      <div class="content">
+        <CardWrap
+          class="item"
+          v-for="article in articles"
+          :key="article.title"
+          :title="article.title"
+          :date="article.date"
+          :tags="article.tags"
+        ></CardWrap>
+      </div>
+      <div class="slider">
+        <MyInformation class="myInfo"></MyInformation>
+        <div class="carousel">
+          <el-carousel height="350px" direction="vertical" :autoplay="true">
+            <el-carousel-item v-for="item in 4" :key="item">
+              <img src="../../public/img/like.png" alt="" height="350" />
+            </el-carousel-item>
+          </el-carousel>
+        </div>
       </div>
     </div>
   </div>
@@ -27,6 +30,7 @@
 import { defineComponent } from "vue";
 
 import CardWrap from "../components/index/card-wrap.vue";
+import MyInformation from "../components/index/myInformation.vue";
 export default defineComponent({
   setup() {
     const articles = [
@@ -139,6 +143,69 @@ export default defineComponent({
             color: "yellow",
           },
         ],
+      }, {
+        title: "关于我的博客",
+        date: "2022-3-1",
+        tags: [
+          {
+            name: "js",
+            color: "red",
+          },
+          {
+            name: "html",
+            color: "#ccc",
+          },
+          {
+            name: "css",
+            color: "green",
+          },
+          {
+            name: "jq",
+            color: "yellow",
+          },
+        ],
+      }, {
+        title: "关于我的博客",
+        date: "2022-3-1",
+        tags: [
+          {
+            name: "js",
+            color: "red",
+          },
+          {
+            name: "html",
+            color: "#ccc",
+          },
+          {
+            name: "css",
+            color: "green",
+          },
+          {
+            name: "jq",
+            color: "yellow",
+          },
+        ],
+      }, {
+        title: "关于我的博客",
+        date: "2022-3-1",
+        tags: [
+          {
+            name: "js",
+            color: "red",
+          },
+          {
+            name: "html",
+            color: "#ccc",
+          },
+          {
+            name: "css",
+            color: "green",
+          },
+          {
+            name: "jq",
+            color: "yellow",
+          },
+        ],
       },
     ];
     return {
@@ -147,31 +214,60 @@ export default defineComponent({
   },
   components: {
     CardWrap,
+    MyInformation,
   },
 });
 </script>
 
 <style lang="scss" scoped>
 .home {
-  margin-top: 1.2rem;
-  box-sizing: border-box;
-  padding: 0 15%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .content {
-    width: 75%;
-    .item {
-      margin-bottom: 1.2rem;
-    }
+  .banner {
+    height: 38rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-image: url("../../public/img/avatar.jpg");
+    background-size: 100% 100%;
+    // z-index: 999;
   }
-  .slider {
-    width: 25%;
+  .context {
+    margin-top: 36rem;
+    // margin-top: 3rem;
+    box-sizing: border-box;
+    padding: 0 10%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    > div {
-      flex: 1;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    .content {
+      width: 70%;
+      box-sizing: border-box;
+      .item {
+        margin-bottom: 1.2rem;
+      }
+    }
+    .slider {
+      width: 30%;
+      box-sizing: border-box;
+      display: flex;
+      padding-left: 3rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      .myInfo {
+        width: 100%;
+        // flex: 1;
+        margin-bottom: 2rem;
+      }
+      .carousel {
+        width: 100%;
+        height: 25rem;
+        border-radius: 0.5rem;
+        img {
+          width: 100%;
+          border-radius: 0.5rem;
+        }
+      }
     }
   }
 }
