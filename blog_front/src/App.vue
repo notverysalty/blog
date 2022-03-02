@@ -42,6 +42,9 @@ a {
 .main {
   // margin-top: 3rem;
 }
+.router-link-active {
+  border-bottom: 2px solid $main-color;
+}
 .footer {
   display: flex;
   justify-content: center;

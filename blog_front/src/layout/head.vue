@@ -27,7 +27,7 @@
 
 <script>
   import { defineComponent, reactive } from 'vue'
-
+  // import { useRoute } from 'vue-router'
   export default defineComponent({
     name: 'head',
     setup() {
@@ -77,6 +77,7 @@
 
     .home-link {
       flex: 1;
+      border: none;
     }
 
     .links {
@@ -116,10 +117,9 @@
           margin-left: 1.5rem;
           line-height: 2rem;
           cursor: pointer;
-        }
-
-        .nav-item:hover {
-          border-bottom: 2px solid green;
+          > a:hover {
+            border-bottom: 2px solid $main-color;
+          }
         }
       }
     }
