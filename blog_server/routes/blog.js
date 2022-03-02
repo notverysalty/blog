@@ -7,12 +7,12 @@ const { updepict } = require('../public/javascripts/depictRelevance')
 const { localDate } = require('../public/javascripts/dateFormat')
 
 // 引入数据表
-const { Article, Tag, Type } = require('../models')
+const { Article, Tag, Type, Ids } = require('../models')
 
 // 路由
 // 添加新的博文
 router.post('/addArticle', async (ctx, next) => {
-  let id = 0
+  let id = 12
   // article_id 文章id
   // title 文章标题
   // body 文章内容
@@ -20,11 +20,13 @@ router.post('/addArticle', async (ctx, next) => {
   // author 文章作者
   // article_type 文章类型
   const content = ctx.request.body
+  console.log(content)
+  // return 
   try {
-    let doc = await Article.find({})
-    if (doc.length != 0) {
-      id = doc.sort(numberSort('article_id'))[0].article_id + 1
-    }
+    // id = await Ids.findOne({tableName: 'article'}) + 1
+    // if (doc.length != 0) {
+    //   id = doc.sort(numberSort('article_id'))[0].article_id + 1
+    // }
     await new Article({
       article_id: id,
       title: content.title,
@@ -34,6 +36,7 @@ router.post('/addArticle', async (ctx, next) => {
       type: content.type,
       create_time: localDate(),
     }).save()
+    // await Ids.updateOne({tableName: 'article'}, {$set: {'val': id + 1}})
     await updepict(Tag, id, true, content.tags, 1)
     await updepict(Type, id, true, content.type, 1)
     ctx.status = 200
