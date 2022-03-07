@@ -53,13 +53,13 @@ app.use(
 // session
 app.keys = ['some secret hurr']
 const CONFIG = {
-   key: 'koa:sess',   //cookie key (default is koa:sess)
-   maxAge: 86400000,  // cookie的过期时间 maxAge in ms (default is 1 days)
-   overwrite: true,  //是否可以overwrite    (默认default true)
-   httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
-   signed: true,   //签名默认true
-   rolling: true,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
-   renew: false,  //(boolean) renew session when session is nearly expired,
+  key: 'koa:sess',   //cookie key (default is koa:sess)
+  maxAge: 86400000,  // cookie的过期时间 maxAge in ms (default is 1 days)
+  overwrite: true,  //是否可以overwrite    (默认default true)
+  httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
+  signed: true,   //签名默认true
+  rolling: true,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+  renew: false,  //(boolean) renew session when session is nearly expired,
   //  sameSite: 'none'
 }
 app.use(session(CONFIG, app))
@@ -85,9 +85,12 @@ app.use(async (ctx, next) => {
 })
 
 // 对路由进行token验证
-app.use(koaJwt({ secret: 'yisakomi'}).unless({
+app.use(koaJwt({ secret: 'yisakomi' }).unless({
   // login接口不需要验证
-  path: [/^\/api\/user/]
+  path: [/^\/api\/user/,
+    /^((?!\/api).)*$/,
+    /^\/api\/blog/
+  ]
 }))
 
 router.prefix('/api')
