@@ -14,6 +14,7 @@ import "@kangc/v-md-editor/lib/theme/style/vuepress.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import api from "./api";
+import randomColor from 'randomcolor'
 
 import Prism from "prismjs";
 
@@ -28,7 +29,9 @@ app
   .use(router)
   .use(VueMarkdownEditor)
   .use(VueAxios, axios);
-app.config.globalProperties.$http = () => api;
-app.provide("$http", api);
+app.config.globalProperties.$http = () => api
+app.config.globalProperties.randomColor = () => randomColor
+app.provide("$http", api)
+app.provide("randomColor", randomColor)
 
-app.mount("#app");
+app.mount("#app")

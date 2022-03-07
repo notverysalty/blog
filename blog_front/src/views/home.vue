@@ -5,10 +5,10 @@
       <div class="content">
         <CardWrap
           class="item"
-          v-for="article in articles"
+          v-for="article in data"
           :key="article.title"
           :title="article.title"
-          :date="article.date"
+          :date="article.create_time"
           :tags="article.tags"
         ></CardWrap>
       </div>
@@ -32,7 +32,7 @@ import { defineComponent, inject, onBeforeMount, ref } from "vue";
 import CardWrap from "../components/index/card-wrap.vue";
 import MyInformation from "../components/index/myInformation.vue";
 export default defineComponent({
-  setup() {
+  setup () {
     const articles = [
       {
         title: "关于我的博客",
@@ -210,21 +210,37 @@ export default defineComponent({
     ];
     const http = inject('$http')
     const data = ref([])
+    const colors = inject('randomColor')
     const onload = async () => {
       const res = await http.article.getAssignedArticle({})
       data.value = res.data.data
-      console.log(data, 11111111)
+      const tags = new Array(data.value.length).fill(0).map(() => [])
+      res.data.data.forEach((item, i) => {
+        item.tags.forEach((tag) => {
+          tags[i].push({
+            name: tag, color: colors({
+              luminosity: 'bright',
+              format: 'rgb' // e.g. 'rgb(225,200,20)'
+            })
+          })
+        })
+      })
+      data.value.forEach((item, i) => {
+        item.tags = tags[i]
+      })
+      console.log(data, tags)
       // page.pageSize = 10
       // page.total = res.data.total
     }
     onBeforeMount(onload)
     return {
       articles,
+      data
     };
   },
   components: {
     CardWrap,
-    MyInformation,
+    MyInformation
   },
 });
 </script>
@@ -236,7 +252,7 @@ export default defineComponent({
     position: absolute;
     top: 0;
     width: 100%;
-    background-image: url("../../public/img/avatar.jpg");
+    background-image: url('../../public/img/avatar.jpg');
     background-size: 100% 100%;
     // z-index: 999;
   }
