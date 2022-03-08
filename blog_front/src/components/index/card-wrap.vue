@@ -2,7 +2,7 @@
   <Card class="card-wrap" :width="'100%'" height="7rem">
     <template v-slot:content>
       <section class="title" @click="handleClick">
-        <router-link :to="{name: 'article', params: {id: '1'}}">
+        <router-link :to="{name: 'article', params: {id: id}}">
           {{ title }}
         </router-link>
       </section>
@@ -27,6 +27,10 @@ import Card from "../card.vue";
 import Tag from "../tag.vue";
 export default defineComponent({
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     title: {
       type: String,
       required: true,

@@ -6,7 +6,8 @@
         <CardWrap
           class="item"
           v-for="article in data"
-          :key="article.title"
+          :key="article.article_id"
+          :id="article.article_id"
           :title="article.title"
           :date="article.create_time"
           :tags="article.tags"

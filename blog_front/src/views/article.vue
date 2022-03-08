@@ -16,18 +16,21 @@
 
 <script>
 import Card from '../components/card.vue'
-import { reactive } from 'vue'
+import { ref, inject } from 'vue'
+import { useRoute } from 'vue-router'
 export default {
   components: {
     Card
   },
   setup() {
-    const data = reactive({
-      title: '标题',
-      date: '2022-3-3',
-      watch: '111',
-      body: '# we are happy'
-    })
+    const route = useRoute()
+    const http = inject('$http')
+    const data = ref([])
+    const onload = async () => {
+      const res = await http.article.getArticle({id: route.params.id})
+      data.value = res.data.data
+    }
+    onBeforeMount(onload)
     return {
       data
     }
