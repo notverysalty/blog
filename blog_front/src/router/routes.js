@@ -13,6 +13,10 @@ export default [
     path: '/tags',
     name: 'tags',
     component: () => import ('../views/tags.vue')
+  },{
+    path: '/types',
+    name: 'types',
+    component: () => import ('../views/types.vue')
   }, {
     path: '/links',
     name: 'links',

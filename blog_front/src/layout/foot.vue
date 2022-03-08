@@ -22,7 +22,7 @@ export default defineComponent({
 <style lang="scss">
   .footer {
     box-sizing: border-box;
-    background-color: white;
+    background-color: rgba($color: white, $alpha: 0.3);
     .footer-wrap {
       .copyright {
 

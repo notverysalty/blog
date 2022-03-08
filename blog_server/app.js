@@ -89,7 +89,8 @@ app.use(koaJwt({ secret: 'yisakomi' }).unless({
   // login接口不需要验证
   path: [/^\/api\/user/,
     /^((?!\/api).)*$/,
-    /^\/api\/blog/
+    /^\/api\/blog/,
+    /^\/api\/tag/
   ]
 }))
 

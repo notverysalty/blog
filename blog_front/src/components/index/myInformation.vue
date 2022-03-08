@@ -33,13 +33,16 @@ export default {
 .myInformation {
   // display: flex;
   padding: 5% 0;
+  text-align: center;
   .avatar {
     margin: 0 25%;
+    display: inline-block;
     box-sizing: border-box;
-    border-radius: 1rem;
-    background-image: url("../../../public/img/avatar.jpg");
+    border-radius: 50%;
+    background-image: url("../../../public/img/menma001.png");
     background-size: 100% 100%;
-    height: 5rem;
+    width: 6rem;
+    height: 6rem;
   }
   .name {
     height: 2rem;

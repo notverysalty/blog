@@ -78,6 +78,11 @@
     .home-link {
       flex: 1;
       border: none;
+      font-size: 2rem;
+      font-weight: 600;
+      font-family: fantasy;
+      font-style: oblique;
+      color: $main-color;
     }
 
     .links {

@@ -5,7 +5,7 @@
         <h1>{{data.title}}</h1>
         <div class="information">
           <div class="date">{{data.date}}</div>
-          <div class="watch">观看数：{{data.watch}}</div>
+          <div class="watch">观看数：{{data.watch_num}}</div>
         </div>
       </template>
     </Card>
@@ -16,7 +16,7 @@
 
 <script>
 import Card from '../components/card.vue'
-import { ref, inject } from 'vue'
+import { ref, inject, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 export default {
   components: {
@@ -29,6 +29,7 @@ export default {
     const onload = async () => {
       const res = await http.article.getArticle({id: route.params.id})
       data.value = res.data.data
+      console.log(data)
     }
     onBeforeMount(onload)
     return {

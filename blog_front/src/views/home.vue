@@ -249,7 +249,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .home {
   .banner {
-    height: 38rem;
+    height: 40rem;
     position: absolute;
     top: 0;
     width: 100%;
@@ -258,7 +258,7 @@ export default defineComponent({
     // z-index: 999;
   }
   .context {
-    margin-top: 36rem;
+    margin-top: 38rem;
     // margin-top: 3rem;
     box-sizing: border-box;
     padding: 0 10%;

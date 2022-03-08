@@ -1,5 +1,5 @@
 <template>
-  <div class="tags">
+  <div class="types">
     <CardTags class="search" :tags="tags"></CardTags>
     <div class="content">
       <CardWrap
@@ -176,7 +176,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tags {
+.types {
   margin-top: 2rem;
   // background-color: #f4f4f4;
   width: 100%;
