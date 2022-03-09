@@ -16,6 +16,7 @@ const giveColor = (target) => {
 }
 
 const tagsColor = (target) => {
+  target.unshift({name: '全部'})
   const tags = []
   target.forEach((item) => {
     tags.push({

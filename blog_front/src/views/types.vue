@@ -1,6 +1,6 @@
 <template>
-  <div class="types">
-    <CardTags class="search" :tags="tags"></CardTags>
+  <div class="tags">
+    <CardTags class="search" :tags="tags" @handleClick="handleClick"></CardTags>
     <div class="content">
       <CardWrap
         class="item"
@@ -25,7 +25,7 @@ export default {
     CardTags,
     CardWrap,
   },
-  setup() {
+  setup () {
     const articles = [
       {
         title: "关于我的博客",
@@ -147,36 +147,38 @@ export default {
       tags.value = tagsColor(resTags.data.data)
       data.value = res.data.data
       const articleTags = giveColor(res.data.data)
-      // res.data.data.forEach((item, i) => {
-      //   item.tags.forEach((tag) => {
-      //     articleTags[i].push({
-      //       name: tag, color: colors({
-      //         luminosity: 'bright',
-      //         format: 'rgb' // e.g. 'rgb(225,200,20)'
-      //       })
-      //     })
-      //   })
-      // })
-      
       data.value.forEach((item, i) => {
         item.tags = articleTags[i]
       })
-      console.log(data, tags)
       // page.pageSize = 10
       // page.total = res.data.total
     }
     onBeforeMount(onload)
+
+    const handleClick = async (id) => {
+      const query = {}
+      if (id !== '全部') {
+        query['tags'] = id
+      }
+      const res = await http.article.getAssignedArticle(query)
+      const articleTags = giveColor(res.data.data)
+      data.value = res.data.data
+      data.value.forEach((item, i) => {
+        item.tags = articleTags[i]
+      })
+    }
     return {
       tags,
       data,
       articles,
+      handleClick
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.types {
+.tags {
   margin-top: 2rem;
   // background-color: #f4f4f4;
   width: 100%;

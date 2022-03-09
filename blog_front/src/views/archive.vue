@@ -26,7 +26,7 @@ export default {
     const onload = async () => {
       const res = await http.article.getAssignedArticle({});
       data.value = res.data.data;
-      console.log(data, tags);
+      console.log(data)
       // page.pageSize = 10
       // page.total = res.data.total
     };

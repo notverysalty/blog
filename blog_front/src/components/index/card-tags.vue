@@ -1,10 +1,12 @@
 <template>
   <Card class="card-tags" :width="'100%'" height="7rem">
     <template v-slot:content>
-      <section class="tags">
+      <section id="tags" class="tags" @click="tagSelect">
         <Tag
           v-for="tag in tags"
           :key="tag.name"
+          :class="{ checked: tag.name == select }"
+          :id="tag.name"
           :bgColor="tag.bgColor"
           :color="tag.color"
           :title="tag.name"
@@ -17,6 +19,7 @@
 <script>
 import Card from "../card.vue";
 import Tag from '../tag.vue'
+import { ref } from 'vue'
 export default {
   props: {
     tags: {
@@ -28,11 +31,21 @@ export default {
     Card,
     Tag
   },
-  setup() {},
+  setup (props, context) {
+    let select = ref('全部')
+    const tagSelect = (e) => {
+      select.value = e.target.id
+      context.emit('handleClick', e.target.id)
+    }
+    return {
+      select,
+      tagSelect
+    }
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .card-tags {
   width: 100%;
   box-sizing: border-box;
@@ -44,6 +57,14 @@ export default {
   flex-wrap: wrap;
   .tags {
     font-size: 0.8rem;
+    > div {
+      cursor: pointer;
+      &.checked {
+        background-color: $main-color !important;
+        border: 1px solid $main-color !important;
+        color: white !important;
+      }
+    }
   }
 }
 </style>

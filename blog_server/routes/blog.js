@@ -132,12 +132,12 @@ router.get('/getAssignedArticle', async (ctx, next) => {
   // term 条件
   // page 页面
   // num 需要的数量
-  try {
-    const data = await Article.find(ctx.query.term)
+  try {   
+    const data = await Article.find(ctx.query)
       .sort({ article_id: -1 })
       .skip(ctx.query.page)
       .limit(ctx.query.num)
-    const total = await Article.find(ctx.query.term).count()
+    const total = await Article.find(ctx.query).count()
     ctx.status = 200
     ctx.body = {
       code: 200,
