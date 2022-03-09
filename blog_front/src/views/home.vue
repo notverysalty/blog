@@ -32,6 +32,7 @@ import { defineComponent, inject, onBeforeMount, ref } from "vue";
 
 import CardWrap from "../components/index/card-wrap.vue";
 import MyInformation from "../components/index/myInformation.vue";
+import { giveColor } from '../util'
 export default defineComponent({
   setup () {
     const articles = [
@@ -211,21 +212,10 @@ export default defineComponent({
     ];
     const http = inject('$http')
     const data = ref([])
-    const colors = inject('randomColor')
     const onload = async () => {
       const res = await http.article.getAssignedArticle({})
       data.value = res.data.data
-      const tags = new Array(data.value.length).fill(0).map(() => [])
-      res.data.data.forEach((item, i) => {
-        item.tags.forEach((tag) => {
-          tags[i].push({
-            name: tag, color: colors({
-              luminosity: 'bright',
-              format: 'rgb' // e.g. 'rgb(225,200,20)'
-            })
-          })
-        })
-      })
+      const tags = giveColor(res.data.data)
       data.value.forEach((item, i) => {
         item.tags = tags[i]
       })
