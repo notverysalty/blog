@@ -14,13 +14,31 @@ const CommentSchema = new Schema({
     required: true,
     unique: true
   },
+  // 评论父id
+  p_id: {
+    type: String,
+    default: '-1',
+  },
+  // 文章id
+  article_id: {
+    type: String,
+    require: true,
+  },
+  // 昵称
+  nickname: {
+    type: String,
+    require: true
+  },
+  // 邮箱
+  email: {
+    type: String,
+    require: true
+  },
   // 评论内容
   content: {
     type: String,
     required: true
   },
-  // 是否回复，回复id
-  response: Array,
   create_time: {
     type: Date,
     required: true

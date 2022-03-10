@@ -5,13 +5,13 @@ const router = require('koa-router')()
 
 
 // 引入数据表
-const { Article } = require('../models')
+const { Comment } = require('../models')
 
 // 路由模块
 // 查询该博文下的一页评论, term表示条件
 router.get('/getComment', async (ctx, next) => {
   try {
-    const data = await Article.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: 1 }).skip(ctx.query.page).limit(ctx.query.num)
+    const data = await Comment.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: -1 }).skip(ctx.query.page).limit(ctx.query.num)
     ctx.status = 200
     ctx.body = {
       code: 200,
@@ -28,11 +28,11 @@ router.get('/getComment', async (ctx, next) => {
 })
 
 const findComemnt = async (ctx) => {
-  return await Article.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: 1 })
+  return await Comment.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: 1 })
 }
 
 const updateComment = async (id, data) => {
-  return await Article.updateOne({ article_id: id }, { $set: { comment: data } })
+  return await Comment.updateOne({ article_id: id }, { $set: { comment: data } })
 }
 
 // 增加该博文下的一条评论
