@@ -35,11 +35,11 @@ const ArticleSchema = new Schema({
   },
   // 新增时间
   create_time: {
-    type: Date
+    type: String
   },
   // 修改时间
   revise_time: {
-    type: Date
+    type: String
   },
   // 观看数量
   watch_num: {

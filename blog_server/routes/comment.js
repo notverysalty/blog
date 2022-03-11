@@ -37,10 +37,24 @@ const updateComment = async (id, data) => {
 
 // 增加该博文下的一条评论
 router.post('/addComment', async (ctx, next) => {
+  const content = ctx.request.body
   try {
-    const data = findComemnt(ctx)
-    data.push({ comment_id: data[data.length - 1].comment_id + 1, ...ctx.query.body })
-    updateComment(ctx.query.id, data)
+    const doc = await Article.find({})
+    if (doc.length !== 0) {
+      id = doc.sort(numberSort('comment_id'))[0].article_id + 1
+    }
+    await new Comment({
+      article_id: content.article_id,
+      comment_id: id,
+      nickname: content.nickname,
+      email: content.email,
+      content: content.content,
+      create_time: localDate(),
+      p_id: content.p_id
+    }).save()
+    // const data = findComemnt(ctx)
+    // data.push({ comment_id: data[data.length - 1].comment_id + 1, ...ctx.query.body })
+    // updateComment(ctx.query.id, data)
     ctx.status = 200
     ctx.body = {
       code: 200,
@@ -56,37 +70,38 @@ router.post('/addComment', async (ctx, next) => {
 })
 
 // 增加回复
-router.post('/updateComment', async (ctx, next) => {
-  try {
-    const data = findComemnt(ctx)
-    data.map((val) => {
-      if (val.comment_id === ctx.query.comment_id) {
-        val.response.push({ response_id: val.response[val.response.length - 1].comment_id + 1, ...ctx.query.body })
-      }
-    })
-    updateComment(ctx.query.id, data)
-    ctx.status = 200
-    ctx.body = {
-      code: 200,
-      msg: '添加成功'
-    }
-  } catch (err) {
-    ctx.status = 500
-    ctx.body = {
-      code: 500,
-      msg: err
-    }
-  }
-})
+// router.post('/updateComment', async (ctx, next) => {
+//   try {
+//     const data = findComemnt(ctx)
+//     data.map((val) => {
+//       if (val.comment_id === ctx.query.comment_id) {
+//         val.response.push({ response_id: val.response[val.response.length - 1].comment_id + 1, ...ctx.query.body })
+//       }
+//     })
+//     updateComment(ctx.query.id, data)
+//     ctx.status = 200
+//     ctx.body = {
+//       code: 200,
+//       msg: '添加成功'
+//     }
+//   } catch (err) {
+//     ctx.status = 500
+//     ctx.body = {
+//       code: 500,
+//       msg: err
+//     }
+//   }
+// })
 
 // 删除该博文下的评论
 router.get('/removeComment', async (ctx, next) => {
   try {
-    let list = findComemnt(ctx)
-    const data = list.filter((val) => {
-      return val.comment_id !== ctx.query.comment_id
-    })
-    updateComment(ctx.query.id, data)
+    // let list = findComemnt(ctx)
+    // const data = list.filter((val) => {
+    //   return val.comment_id !== ctx.query.comment_id
+    // })
+    // updateComment(ctx.query.id, data)
+    await Comment.deleteMany({ $or:[{comment_id : ctx.query.id},{p_id : ctx.query.id}]})
     ctx.status = 200
     ctx.body = {
       code: 200,

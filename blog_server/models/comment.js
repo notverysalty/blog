@@ -40,7 +40,7 @@ const CommentSchema = new Schema({
     required: true
   },
   create_time: {
-    type: Date,
+    type: String,
     required: true
   }
 })

@@ -27,10 +27,10 @@ const BloggerScema = new Schema({
         required: true
     },
     create_time: {
-        type: Date
+        type: String
     },
     last_modified_time: {
-        type: Date
+        type: String
     },
     avatar: {
         type: String,
@@ -48,7 +48,7 @@ const BloggerScema = new Schema({
         default: -1
     },
     birthday: {
-        type: Date
+        type: String
     },
     status: {
         type: Number,

@@ -33,9 +33,9 @@ const LinkSchema = new Schema({
   // 作者
   author: String,
   // 创建日期
-  create_time: Date,
+  create_time: String,
   // 修改日期
-  revise_time: Date,
+  revise_time: String,
   // 状态
   status: {
     type: Number,
