@@ -77,14 +77,16 @@
               <router-link :to="{name: 'tagList'}">标签列表 </router-link>
             </a-menu-item>
           </a-sub-menu>
-          <a-sub-menu key="sub4">
+          <a-sub-menu key="comment">
             <template #title>
               <span>
                 <notification-outlined />
                 评论
               </span>
             </template>
-            <a-menu-item key="13">评论列表</a-menu-item>
+            <a-menu-item key="commentList">
+              <router-link :to="{name: 'commentList'}">评论列表 </router-link>
+            </a-menu-item>
           </a-sub-menu>
         </a-menu>
       </a-layout-sider>

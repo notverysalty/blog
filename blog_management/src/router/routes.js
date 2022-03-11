@@ -43,6 +43,11 @@ const routes = [
         name: 'typeList',
         component: () => import('../views/type/TypeList.vue'),
       },
+      {
+        path: 'commentList',
+        name: 'commentList',
+        component: () => import('../views/comment/index.vue'),
+      },
     ],
   },
   {

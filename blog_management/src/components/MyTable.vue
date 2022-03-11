@@ -2,6 +2,8 @@
   <a-card :title="title" :bordered="false">
     <template #extra>
       <a-button v-if="isButton" type="primary" @click="addClick">新增</a-button>
+      <slot name="head">
+      </slot>
     </template>
     <a-table :row-key="record => record" :columns="columns" :data-source="data" :loading="loading" :pagination="pagination" class="table">
       <template #name="{record}">
