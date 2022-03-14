@@ -5,7 +5,7 @@
     </a-card>
     <a-form layout="horizontal" class="from" :model="formState" @finish="handleFinish" @finishFailed="handleFinishFailed">
       <a-form-item label="类型：">
-        <a-select mode="multiple" :size="size" v-model:value="formState.type" style="width: 200px">
+        <a-select :size="size" v-model:value="formState.type" style="width: 200px">
           <a-select-option v-for="i in types" :key="i.name">
             {{ i.name }}
           </a-select-option>

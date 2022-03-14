@@ -39,9 +39,9 @@ a {
   width: 100%;
   height: 4rem;
 }
-.main {
+// .main {
   // margin-top: 3rem;
-}
+// }
 .router-link-active {
   border-bottom: 2px solid $main-color;
 }

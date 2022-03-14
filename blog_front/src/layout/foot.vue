@@ -24,9 +24,9 @@ export default defineComponent({
     box-sizing: border-box;
     background-color: rgba($color: white, $alpha: 0.3);
     .footer-wrap {
-      .copyright {
+      // .copyright {
 
-      }
+      // }
       .info {
         a {
           color: $main-color;
