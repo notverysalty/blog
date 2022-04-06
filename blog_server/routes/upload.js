@@ -6,7 +6,7 @@ const router = require('koa-router')()
 // 压缩图片工具
 let images = require('images')
 // 上传图片的模板
-let multer = require('multer')
+let multer = require('koa-multer')
 // 生成的图片放入uploads文件夹下
 let upload = multer({ dest: 'uploads/' })
 
@@ -33,18 +33,18 @@ const writeFile = (path, data) => {
 
 // 上传图片
 router.post('/img', upload.single('img'), async (ctx, next) => {
-  const content = ctx.request.body
+  const content = ctx.req.file
   try {
     // 读取成功
-    const data = await readFile(content.file.path)
+    const data = await readFile(content.path)
     // 声明图片名字为时间戳和随机数拼接成的，尽量确保唯一
     let time = Date.now() + parseInt(Math.random() * 999) + parseInt(Math.random() * 5555)
     // 拓展名
-    let extname = content.file.mimetype.split('/')[1]
+    let extname = content.mimetype.split('/')[1]
     // 拼接成图片名
     let keepname = time + '.' + extname
-    await writeFile(path.join(__dirname, '../public/img/' + keepname), data)
-    fs.unlink(content.file.path, (err) => {
+    await writeFile(path.join(__dirname, '../public/images/' + keepname), data)
+    fs.unlink(content.path, (err) => {
       if (err) {
         ctx.status = 200
         ctx.body = {
@@ -53,7 +53,7 @@ router.post('/img', upload.single('img'), async (ctx, next) => {
         }
       }
     })
-    fs.stat(path.join(__dirname, '../public/img/' + keepname), (err, file) => {
+    fs.stat(path.join(__dirname, '../public/images/' + keepname), (err, file) => {
       if (err) {
         ctx.status = 200
         ctx.body = {
@@ -61,16 +61,16 @@ router.post('/img', upload.single('img'), async (ctx, next) => {
           msg: err
         }
       }
-      let name = path.join(__dirname, '../public/img/' + keepname)
-      let outName = path.join(__dirname, '../public/img/yisakomi' + keepname)
+      let name = path.join(__dirname, '../public/images/' + keepname)
+      let outName = path.join(__dirname, '../public/images/thumbnail' + keepname)
       images(name).size(600).save(outName, { quality: 50 })
-      ctx.status = 200
-      ctx.body = {
-        code: 200,
-        url: keepname,
-        msg: '图片上传成功'
-      }
     })
+    ctx.status = 200
+    ctx.body = {
+      code: 200,
+      url: keepname,
+      msg: '图片上传成功'
+    }
   } catch (err) {
     ctx.status = 500
     ctx.body = {
@@ -82,7 +82,7 @@ router.post('/img', upload.single('img'), async (ctx, next) => {
 
 // 删除图片
 router.delete('/removeImg', async (ctx, next) => {
-  fs.unlink(path.join(__dirname, '../public/img/' + ctx.query.url), err => {
+  fs.unlink(path.join(__dirname, '../public/images/' + ctx.query.url), err => {
     if (err) {
       ctx.status = 200
       ctx.body = {
