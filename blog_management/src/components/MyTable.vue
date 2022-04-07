@@ -2,35 +2,54 @@
   <a-card :title="title" :bordered="false">
     <template #extra>
       <a-button v-if="isButton" type="primary" @click="addClick">新增</a-button>
-      <slot name="head">
-      </slot>
+      <slot name="head"> </slot>
     </template>
-    <a-table :row-key="record => record" :columns="columns" :data-source="data" :loading="loading" :pagination="pagination" class="table">
-      <template #name="{record}">
-        <a-input v-if="edit" v-model:value="record.name" style="margin: -5px 0;" />
+    <a-table
+      :row-key="(record) => record"
+      :columns="columns"
+      :data-source="data"
+      :loading="loading"
+      :pagination="pagination"
+      class="table"
+    >
+      <template #name="{ record }">
+        <a-input
+          v-if="edit"
+          v-model:value="record.name"
+          style="margin: -5px 0"
+        />
         <template v-else>
           {{ record.name }}
         </template>
       </template>
       <template #tags="{ text: tags }">
         <span>
-          <a-tag v-for="tag in tags" :key="tag" :color="
+          <a-tag
+            v-for="tag in tags"
+            :key="tag"
+            :color="
               tag === 'loser'
                 ? 'volcano'
                 : tag.length > 5
                 ? 'geekblue'
                 : 'green'
-            ">
+            "
+          >
             {{ tag.toUpperCase() }}
           </a-tag>
         </span>
       </template>
-      <template #status="{record}">
+      <template #status="{ record }">
         <span>
-          <a-switch checked-children="启用" un-checked-children="禁用" :disabled="!edit" v-model:checked="record.status" />
+          <a-switch
+            checked-children="启用"
+            un-checked-children="禁用"
+            :disabled="!edit"
+            v-model:checked="record.status"
+          />
         </span>
       </template>
-      <template #action="{ text,record }">
+      <template #action="{ text, record }">
         <span v-if="!edit" @click="actionClick($event, text)">
           <a id="edit">编辑</a>
           <a-divider type="vertical" />
@@ -75,12 +94,12 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props, context) {
+  setup (props, context) {
     const edit = ref(false)
     const actionClick = (e, target) => {
       if (props.rowEdit && e.target.id === 'edit') {
         edit.value = true
-        console.log(111111111,target)
+        console.log(111111111, target)
         return
       }
       if (e.target.id === 'delete') {

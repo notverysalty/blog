@@ -1,7 +1,12 @@
 <template>
   <div class="login">
     <a-card class="card" title="Welcome login blog" :bordered="false">
-      <a-form layout="horizontal" :model="formState" @finish="handleFinish" @finishFailed="handleFinishFailed">
+      <a-form
+        layout="horizontal"
+        :model="formState"
+        @finish="handleFinish"
+        @finishFailed="handleFinishFailed"
+      >
         <a-form-item>
           <a-input v-model:value="formState.nickname" placeholder="Username">
             <template #prefix>
@@ -10,7 +15,11 @@
           </a-input>
         </a-form-item>
         <a-form-item>
-          <a-input v-model:value="formState.password" type="password" placeholder="Password">
+          <a-input
+            v-model:value="formState.password"
+            type="password"
+            placeholder="Password"
+          >
             <template #prefix>
               <LockOutlined style="color: rgba(0, 0, 0, 0.25)" />
             </template>
@@ -24,7 +33,17 @@
           </a-input>
         </a-form-item>
         <a-form-item>
-          <a-button type="primary" html-type="submit" shape="round" block :disabled="formState.nickname === '' || formState.password === '' || formState.verify === ''">
+          <a-button
+            type="primary"
+            html-type="submit"
+            shape="round"
+            block
+            :disabled="
+              formState.nickname === '' ||
+              formState.password === '' ||
+              formState.verify === ''
+            "
+          >
             Log in
           </a-button>
         </a-form-item>
@@ -40,7 +59,7 @@ import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import util from '../util/util'
 export default defineComponent({
-  setup() {
+  setup () {
     const formState = reactive({
       nickname: '',
       password: '',
@@ -56,7 +75,7 @@ export default defineComponent({
       }
       vImg.value = res.data.data
     }
-    onBeforeMount (() => {
+    onBeforeMount(() => {
       getVerify()
     })
     const handleFinish = async () => {
