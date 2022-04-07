@@ -55,7 +55,7 @@ const service = axios.create({
   },
   withCredentials: true,
   timeout: 30000,
-  validateStatus () {
+  validateStatus() {
     return true
   }
 })
@@ -126,6 +126,18 @@ class Request {
       method: 'put',
       data: params,
       url
+    }
+    return service(url, config)
+  }
+  // upload
+  upload(url, params) {
+    const config = {
+      method: 'post',
+      data: params,
+      url,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     }
     return service(url, config)
   }

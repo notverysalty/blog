@@ -50,6 +50,13 @@ const login = {
   verify: '/user/verify'
 }
 
+// 评论api
+const comment = {
+  addComment: '/comment/addComment',
+  removeComment: '/comment/removeComment',
+  getComment: '/comment/getComment'
+}
+
 // 上传
 const upload = {
   // 上传图片
@@ -63,5 +70,6 @@ export {
   tag,
   type,
   login,
-  upload
+  upload,
+  comment
 }

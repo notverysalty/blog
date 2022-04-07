@@ -5,7 +5,7 @@
     </a-card>
     <a-form layout="horizontal" class="from" :model="formState" @finish="handleFinish" @finishFailed="handleFinishFailed">
       <a-form-item label="类型：">
-        <a-select mode="multiple" :size="size" v-model:value="formState.type" style="width: 200px">
+        <a-select :size="size" v-model:value="formState.type" style="width: 200px">
           <a-select-option v-for="i in types" :key="i.name">
             {{ i.name }}
           </a-select-option>
@@ -80,13 +80,13 @@ export default defineComponent({
       message.success('保存成功')
       router.push({ name: 'articleList'})
     }
-    const handleUploadImage = (event, insertImage, files) => {
+    const handleUploadImage = async (event, insertImage, files) => {
       // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容
       console.log(files)
       insertImage({
         url:
-          'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1269952892,3525182336&fm=26&gp=0.jpg',
-        desc: '七龙珠',
+          'http://localhost:3000/images/' + res.data.url,
+        // desc: '七龙珠',
         // width: 'auto',
         // height: 'auto',
       });

@@ -4,7 +4,7 @@
       title="评论列表"
       :loading="loading"
       :pagination="page"
-      :data="data"
+      :data="comments"
       :columns="columns"
       :rowEdit="true" 
       @actionClick="actionClick"
@@ -18,10 +18,7 @@
           @focus="focus"
           @change="handleChange"
         >
-          <a-select-option value="jack">Jack</a-select-option>
-          <a-select-option value="lucy">Lucy</a-select-option>
-          <a-select-option value="disabled" disabled>Disabled</a-select-option>
-          <a-select-option value="Yiminghe">yiminghe</a-select-option>
+          <a-select-option v-for="article in data" :key="article.article_id" :value="article.article_id">{{article.title}}</a-select-option>
         </a-select>
       </template>
     </MyTable>
@@ -69,6 +66,7 @@ export default defineComponent({
     const data = ref([]);
     const router = useRouter();
     const value = ref("");
+    const comments = ref([])
     const onload = async () => {
       const res = await http.article.getAssignedArticle({});
       data.value = res.data.data;
@@ -80,7 +78,7 @@ export default defineComponent({
     onBeforeMount(onload);
     const handleChange = async (key) => {
       const res = await http.comment.getComment({article_id: key});
-      res.data.data
+      comments.value = res.data.data
     }
     const actionClick = async (key, target) => {
       let res = "";
