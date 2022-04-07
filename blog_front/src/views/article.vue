@@ -9,7 +9,6 @@
         </div>
       </template>
     </Card>
-    <!-- <div class="content" v-html="'<p>你好</p>'"></div> -->
     <v-md-editor :model-value="data.body" mode="preview"></v-md-editor>
   </div>
 </template>

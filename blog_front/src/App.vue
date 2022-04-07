@@ -41,11 +41,13 @@ a {
 }
 .main {
   // margin-top: 3rem;
+  min-height: 80vh;
 }
 .router-link-active {
   border-bottom: 2px solid $main-color;
 }
 .footer {
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;

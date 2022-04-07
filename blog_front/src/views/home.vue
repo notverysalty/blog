@@ -28,10 +28,9 @@
 </template>
 
 <script>
-import { defineComponent, inject, onBeforeMount, ref } from "vue";
-
-import CardWrap from "../components/index/card-wrap.vue";
-import MyInformation from "../components/index/myInformation.vue";
+import { defineComponent, inject, onBeforeMount, ref } from "vue"
+import CardWrap from "../components/index/card-wrap.vue"
+import MyInformation from "../components/index/myInformation.vue"
 import { giveColor } from '../util'
 export default defineComponent({
   setup () {
@@ -264,10 +263,9 @@ export default defineComponent({
       }
     }
     .slider {
-      width: 30%;
+      width: 22rem;
       box-sizing: border-box;
       display: flex;
-      padding-left: 3rem;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;

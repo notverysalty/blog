@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="footer-wrap">
-      <div class="copyright">©2020 - 2021 By yisakomi</div>
+      <div class="copyright">©2020 - 2022 By yisakomi</div>
       <div class="info">
         <a href="http://beian.miit.gov.cn/">赣ICP备2021007902号</a>
       </div>
@@ -21,8 +21,9 @@ export default defineComponent({
 
 <style lang="scss">
   .footer {
+    color: white;
     box-sizing: border-box;
-    background-color: rgba($color: white, $alpha: 0.3);
+    background-color: #171d20;
     .footer-wrap {
       .copyright {
 

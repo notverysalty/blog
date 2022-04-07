@@ -54,21 +54,7 @@ export default defineComponent({
     console.log(router)
     const tags = ref([])
     const types = ref([])
-    const content = ref('')
     const btn = ref('')
-    const init = {
-      language_url: 'https://lab.uxfeel.com/node_modules/tinymce/langs/zh_CN.js',
-      // language_url: '../../../public/langs/zh_CN.js',
-      language: 'zh_CN',
-      height: '40vh',
-      plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
-      toolbar:
-        'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify|bullist numlist |outdent indent blockquote | undo redo | link unlink image code | removeformat',
-      branding: false,
-      images_upload_handler: (blobInfo, success) => {
-        success('data:image/jpeg;base64,' + blobInfo.base64())
-      },
-    }
     // 获取http对象
     const http = inject('$http')
     onBeforeMount(async () => {
@@ -83,8 +69,6 @@ export default defineComponent({
       if (!formState.value.title || !formState.value.body) {
         return
       }
-      console.log(formState)
-
       let res = ''
       const val = formState.value
       if (props.mode === 'edit') {
@@ -98,9 +82,7 @@ export default defineComponent({
     }
     const handleUploadImage = (event, insertImage, files) => {
       // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容
-      console.log(files);
-
-      // 此处只做示例
+      console.log(files)
       insertImage({
         url:
           'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1269952892,3525182336&fm=26&gp=0.jpg',
@@ -111,10 +93,8 @@ export default defineComponent({
     }
     return {
       formState,
-      init,
       tags,
       types,
-      content,
       btn,
       clickHandle,
       handleUploadImage

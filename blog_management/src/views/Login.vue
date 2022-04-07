@@ -19,7 +19,6 @@
         <a-form-item>
           <a-input v-model:value="formState.verify" placeholder="请输入验证码">
             <template #suffix>
-              <!-- <img v-html="vImg" alt="" width="70" height="20"> -->
               <span @click="getVerify" v-html="vImg"></span>
             </template>
           </a-input>
