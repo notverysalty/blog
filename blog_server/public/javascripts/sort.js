@@ -1,5 +1,5 @@
 exports.numberSort = (property) => {
   return (a, b) => {
-    return a[property] - b[property]
+    return b[property] - a[property]
   }
 }

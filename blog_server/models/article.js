@@ -30,7 +30,6 @@ const ArticleSchema = new Schema({
   // 作者
   author: {
     type: String,
-    required: true,
     default: 'yisakomi'
   },
   // 新增时间

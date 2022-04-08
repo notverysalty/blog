@@ -79,6 +79,7 @@ export default defineComponent({
       visible.value = true
     }
     const handleCancel = () => {
+      value.value = ''
       visible.value = false
     }
     const handleOk = async () => {
@@ -89,6 +90,7 @@ export default defineComponent({
       message.success('保存成功')
       console.log(res)
       getTag()
+      value.value = ''
       visible.value = false
     }
     return {

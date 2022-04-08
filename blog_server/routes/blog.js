@@ -27,6 +27,7 @@ router.post('/addArticle', async (ctx, next) => {
     const doc = await Article.find({})
     if (doc.length !== 0) {
       id = doc.sort(numberSort('article_id'))[0].article_id + 1
+      console.log(id)
     }
     await new Article({
       article_id: id,

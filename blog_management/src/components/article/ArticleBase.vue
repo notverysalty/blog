@@ -83,9 +83,12 @@ export default defineComponent({
     const handleUploadImage = async (event, insertImage, files) => {
       // 拿到 files 之后上传到文件服务器，然后向编辑框中插入对应的内容
       console.log(files)
+      const formdata = new FormData()
+      formdata.append('img', files[0])
+      const res = await http.upload.addImg(formdata)
       insertImage({
         url:
-          'http://localhost:3000/images/' + res.data.url,
+          'http://localhost:3001/images/' + res.data.url,
         // desc: '七龙珠',
         // width: 'auto',
         // height: 'auto',

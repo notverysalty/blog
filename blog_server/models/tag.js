@@ -20,10 +20,10 @@ const TagSchema = new Schema({
   },
   // 关联文章ID数组
   list: Array,
-  color: {
-    type: String,
-    required: true
-  },
+  // color: {
+  //   type: String,
+  //   required: true
+  // },
   status: {
     type: Boolean,
     default: true

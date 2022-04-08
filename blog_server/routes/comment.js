@@ -105,7 +105,7 @@ router.get('/removeComment', async (ctx, next) => {
     ctx.status = 200
     ctx.body = {
       code: 200,
-      msg: '添加成功'
+      msg: '删除成功'
     }
   } catch (err) {
     ctx.status = 500
