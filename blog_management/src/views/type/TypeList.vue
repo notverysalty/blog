@@ -90,7 +90,7 @@ export default defineComponent({
       }
       const res = await http.type.addType({ name: value.value })
       console.log(res)
-      message.success('保存成功')
+      message.success(res.data.msg)
       getType()
       value.value = ''
       visible.value = false

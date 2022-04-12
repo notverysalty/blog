@@ -32,7 +32,16 @@ router.post('/addType', async (ctx, next) => {
 // 删除类型
 router.delete('/removeType', async (ctx, next) => {
   try {
-    await Type.deleteOne( {name: ctx.query.name })
+    const type = await Type.findOne({name: ctx.query.name })
+    if (type.num) {
+      ctx.status = 200
+      ctx.body = {
+        code: 200,
+        msg: '删除类型前需要清空类型引用文章'
+      }
+      return
+    }
+    await Type.deleteOne({name: ctx.query.name })
     ctx.status = 200
     ctx.body = {
       code: 200,
@@ -50,6 +59,14 @@ router.delete('/removeType', async (ctx, next) => {
 // 修改类型
 router.put('/updateType', async (ctx, next) => {
   const content = ctx.request.body
+  if (content.num) {
+    ctx.status = 200
+    ctx.body = {
+      code: 200,
+      msg: '删除类型前需要清空类型引用文章'
+    }
+    return
+  }
   try {
     await Type.updateOne({ _id: content._id }, content)
     ctx.status = 200

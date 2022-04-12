@@ -46,7 +46,7 @@ export default defineComponent({
     const formState = ref({
       title: '',
       body: '',
-      type:[],
+      type: [],
       tags: []
     })
     // 获取路由对象

@@ -38,6 +38,15 @@ router.post('/addTag', async (ctx, next) => {
 // 删除标签
 router.delete('/removeTag', async (ctx, next) => {
   try {
+    const tag = await Tag.findOne({name: ctx.query.name })
+    if (tag.num) {
+      ctx.status = 200
+      ctx.body = {
+        code: 200,
+        msg: '删除标签前需要清空标签引用文章'
+      }
+      return
+    }
     await Tag.deleteOne({ name: ctx.query.name })
     ctx.status = 200
     ctx.body = {
@@ -56,6 +65,14 @@ router.delete('/removeTag', async (ctx, next) => {
 // 修改标签
 router.put('/updateTag', async (ctx, next) => {
   const content = ctx.request.body
+  if (content.num) {
+    ctx.status = 200
+    ctx.body = {
+      code: 200,
+      msg: '删除标签前需要清空标签引用文章'
+    }
+    return
+  }
   try {
     await Tag.updateOne({ _id: content._id }, content)
     ctx.status = 200

@@ -26,7 +26,7 @@ export default defineComponent({
     const getArticle = async () => {
       const id = route.params.id
       const res = await http.article.getArticle({ id })
-      formState.value = res.data.data
+      formState.value = {...res.data.data, oldtype: res.data.data.type, oldtags: res.data.data.tags}
     }
     onBeforeMount(() => {
       getArticle()

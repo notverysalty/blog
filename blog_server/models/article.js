@@ -47,7 +47,7 @@ const ArticleSchema = new Schema({
   },
   // 文章类型
   type: {
-    type: Array
+    type: String
   },
   // 评论
   comment: {
