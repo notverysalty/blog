@@ -34,8 +34,9 @@ export default {
   setup (props, context) {
     let select = ref('全部')
     const tagSelect = (e) => {
-      select.value = e.target.id
-      context.emit('handleClick', e.target.id)
+      let id = e.target.id === 'tags' ? '全部' : e.target.id
+      select.value = id
+      context.emit('handleClick', id)
     }
     return {
       select,
