@@ -4,22 +4,28 @@
       <template v-slot:content>
         <h1>{{data.title}}</h1>
         <div class="information">
-          <div class="date">{{data.date}}</div>
+          <div class="date">{{data.create_time}}</div>
           <div class="watch">观看数：{{data.watch_num}}</div>
         </div>
       </template>
     </Card>
     <v-md-editor :model-value="data.body" mode="preview"></v-md-editor>
+    <Reply />
+    <Comment />
   </div>
 </template>
 
 <script>
 import Card from '../components/card.vue'
+import Reply from '../components/Comment/Reply.vue'
+import Comment from '../components/Comment'
 import { ref, inject, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 export default {
   components: {
-    Card
+    Card,
+    Reply,
+    Comment
   },
   setup() {
     const route = useRoute()

@@ -27,10 +27,11 @@ app.use(
 app.use(
   cors({
     origin: function (ctx) {
-      /*if (ctx.url === '/cors') {
-          return "*"; // 允许来自所有域名请求
-      }*/
-      // return '*'
+      const whiteList = ['http://yisakomi.cn', 'http://localhost:8081']; //可跨域白名单
+      let url = ctx.header.referer.substring(0, ctx.header.referer.length - 1)
+      if (whiteList.includes(url)) {
+        return url //注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
+      }
       return 'http://localhost:8080';
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
