@@ -10,8 +10,9 @@
       </template>
     </Card>
     <v-md-editor :model-value="data.body" mode="preview"></v-md-editor>
-    <Reply />
-    <Comment />
+    <Reply @handleReply="handleReply" />
+    <div class="comment_title">评论</div>
+    <Comment :comment="comments[0]" />
   </div>
 </template>
 
@@ -31,14 +32,27 @@ export default {
     const route = useRoute()
     const http = inject('$http')
     const data = ref([])
+    const comments = ref([
+      {
+        nickname: '有利',
+        date: '2020-1-1',
+        content: '111111'
+      }
+    ])
     const onload = async () => {
       const res = await http.article.getArticle({id: route.params.id})
       data.value = res.data.data
       console.log(data)
     }
+    const handleReply = async (reply) => {
+      const res = await http.article.addComment({article_id: route.params.id, ...reply})
+      console.log(res)
+    }
     onBeforeMount(onload)
     return {
-      data
+      data,
+      comments,
+      handleReply
     }
   },
 }
@@ -67,9 +81,18 @@ export default {
           font-size: 1.1rem;
         }
       }
+      
     }
     .content {
       width: 100%;
+    }
+    .comment_title {
+      margin: 1rem 0;
+      width: 100%;
+      text-align: left;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #555;
     }
   }
 </style>

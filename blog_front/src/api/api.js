@@ -10,6 +10,8 @@ const article = {
   getArticle: '/blog/getArticle',
   // 查询指定数量的博文列表
   getAssignedArticle: '/blog/getAssignedArticle',
+  // 增加评论
+  addComment: '/comment/addComment',
   // 删除评论
   removeComment: '/comment/removeComment'
 }

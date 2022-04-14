@@ -22,6 +22,10 @@ export default {
   getAssignedArticle (params) {
     return request.get(article.getAssignedArticle, params)
   },
+  // 增加评论
+  addComment (params) {
+    return request.post(article.addArticle, params)
+  },
   // 删除评论
   removeComment (params) {
     return request.delete(article.removeComment, params)
