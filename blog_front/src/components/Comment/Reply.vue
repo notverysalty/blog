@@ -44,7 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 .reply {
-  border: 1px dashed #ccc;
+  border: 1px solid #f0f0f0;
   .header {
     display: flex;
     height: 3rem;

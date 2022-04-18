@@ -12,7 +12,11 @@
     <v-md-editor :model-value="data.body" mode="preview"></v-md-editor>
     <Reply @handleReply="handleReply" />
     <div class="comment_title">评论</div>
-    <Comment :comment="comments[0]" />
+    <Comment :comment="comments[0]">
+      <template v-slot:reply>
+        <Comment style="fontSize: 12px;" :comment="comments[0]"/>
+      </template>
+    </Comment>
   </div>
 </template>
 
