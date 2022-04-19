@@ -2,6 +2,8 @@
 const router = require('koa-router')()
 
 // 引入工具
+const { localDate } = require('../public/javascripts/dateFormat')
+const { numberSort } = require('../public/javascripts/sort')
 
 
 // 引入数据表
@@ -11,7 +13,7 @@ const { Comment } = require('../models')
 // 查询该博文下的一页评论, term表示条件
 router.get('/getComment', async (ctx, next) => {
   try {
-    const data = await Comment.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: -1 }).skip(ctx.query.page).limit(ctx.query.num)
+    const data = await Comment.find({ article_id: ctx.query.id }).sort({ create_time: -1 }).skip(ctx.query.page).limit(ctx.query.num)
     ctx.status = 200
     ctx.body = {
       code: 200,
@@ -38,10 +40,11 @@ const updateComment = async (id, data) => {
 // 增加该博文下的一条评论
 router.post('/addComment', async (ctx, next) => {
   const content = ctx.request.body
+  let id = 0
   try {
-    const doc = await Article.find({})
+    const doc = await Comment.find({})
     if (doc.length !== 0) {
-      id = doc.sort(numberSort('comment_id'))[0].article_id + 1
+      id = doc.sort(numberSort('comment_id'))[0].comment_id + 1
     }
     await new Comment({
       article_id: content.article_id,

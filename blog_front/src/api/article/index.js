@@ -24,10 +24,14 @@ export default {
   },
   // 增加评论
   addComment (params) {
-    return request.post(article.addArticle, params)
+    return request.post(article.addComment, params)
   },
   // 删除评论
   removeComment (params) {
     return request.delete(article.removeComment, params)
+  },
+  // 获取评论列表
+  getComment (params) {
+    return request.get(article.getComment, params)
   }
 }

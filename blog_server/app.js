@@ -91,7 +91,8 @@ app.use(koaJwt({ secret: 'yisakomi' }).unless({
   path: [/^\/api\/user/,
     /^((?!\/api).)*$/,
     /^\/api\/blog/,
-    /^\/api\/tag/
+    /^\/api\/tag/,
+    /^\/api\/comment/,
   ]
 }))
 

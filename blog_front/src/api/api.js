@@ -13,7 +13,9 @@ const article = {
   // 增加评论
   addComment: '/comment/addComment',
   // 删除评论
-  removeComment: '/comment/removeComment'
+  removeComment: '/comment/removeComment',
+  // 评论列表
+  getComment: '/comment/getComment'
 }
 
 // 标签api汇总

@@ -18,6 +18,7 @@
 <script>
 import Card from "../card.vue"
 import { reactive } from 'vue'
+import { ElMessage } from 'element-plus'
 export default {
   components: {
     Card,
@@ -30,6 +31,7 @@ export default {
     })
     const handleSubmit = () => {
       if (!reply.nickname || !reply.email || !reply.content) {
+        ElMessage.error('输入框不能为空')
         return
       }
       context.emit('handleReply', reply)

@@ -9,14 +9,14 @@
       <section class="container">
         <div class="header">{{ comment.nickname }}</div>
         <div class="meta">
-          <span class="date">{{ comment.date }}</span>
+          <span class="date">{{ comment.create_time }}</span>
           <span class="reply" @click="handleSwitch">回复</span>
         </div>
         <div class="content">
           <p>{{ comment.content }}</p>
         </div>
         <div class="wrapper" :style="disabled ? 'display: none' : 'display: block'">
-          <Reply />
+          <Reply @handleReply="handleReply" />
         </div>
         <div class="quote">
           <slot name="reply"></slot>
@@ -36,19 +36,28 @@ export default {
       type: Object,
       required: true,
     },
+    child: {
+      type: Boolean
+    }
   },
   components: {
     Card,
     Reply
   },
-  setup() {
+  setup(props, context) {
     const disabled = ref(true)
     const handleSwitch = () => {
       disabled.value = !disabled.value
     }
+    const handleReply = (reply) => {
+      console.log(1111, props.comment.p_id)
+      reply.p_id = props.child ? props.comment.p_id : props.comment.id
+      context.emit('replyByOne', reply)
+    }
     return {
       disabled,
-      handleSwitch
+      handleSwitch,
+      handleReply
     }
   },
 };
