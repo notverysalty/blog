@@ -13,9 +13,12 @@
           <span class="reply" @click="handleSwitch">回复</span>
         </div>
         <div class="content">
-          <p>{{ comment.content }}</p>
+          <p v-html="comment.content"></p>
         </div>
-        <div class="wrapper" :style="disabled ? 'display: none' : 'display: block'">
+        <div
+          class="wrapper"
+          :style="disabled ? 'display: none' : 'display: block'"
+        >
           <Reply @handleReply="handleReply" />
         </div>
         <div class="quote">
@@ -28,8 +31,8 @@
 
 <script>
 import Card from "../card.vue";
-import Reply from './Reply.vue'
-import { ref } from 'vue'
+import Reply from "./Reply.vue";
+import { ref } from "vue";
 export default {
   props: {
     comment: {
@@ -37,28 +40,30 @@ export default {
       required: true,
     },
     child: {
-      type: Boolean
-    }
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     Card,
-    Reply
+    Reply,
   },
   setup(props, context) {
-    const disabled = ref(true)
+    const disabled = ref(true);
     const handleSwitch = () => {
-      disabled.value = !disabled.value
-    }
+      disabled.value = !disabled.value;
+    };
     const handleReply = (reply) => {
-      console.log(1111, props.comment.p_id)
-      reply.p_id = props.child ? props.comment.p_id : props.comment.id
-      context.emit('replyByOne', reply)
-    }
+      console.log(1111, props.child);
+      reply.p_id = props.child ? props.comment.p_id : props.comment.comment_id;
+      reply.content = `<a style="color: #DE5F55" href="#${reply.p_id}">@${props.comment.nickname}</a> ${reply.content}`;
+      context.emit("replyByOne", reply);
+    };
     return {
       disabled,
       handleSwitch,
-      handleReply
-    }
+      handleReply,
+    };
   },
 };
 </script>
@@ -87,7 +92,7 @@ export default {
         color: #909399;
       }
       .reply {
-        font-size: .9rem;
+        font-size: 0.9rem;
         color: $main-color;
         cursor: pointer;
       }
@@ -96,8 +101,8 @@ export default {
       margin-bottom: 1em;
     }
     .quote {
-      padding-left: .5em;
-      border-left: 1px dashed hsla(0,0%,93%,.5);
+      padding-left: 0.5em;
+      border-left: 1px dashed hsla(0, 0%, 93%, 0.5);
     }
   }
 }

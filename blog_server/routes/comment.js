@@ -29,13 +29,13 @@ router.get('/getComment', async (ctx, next) => {
   }
 })
 
-const findComemnt = async (ctx) => {
-  return await Comment.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: 1 })
-}
+// const findComemnt = async (ctx) => {
+//   return await Comment.find({ article_id: ctx.query.id }, 'comemnt').sort({ create_time: 1 })
+// }
 
-const updateComment = async (id, data) => {
-  return await Comment.updateOne({ article_id: id }, { $set: { comment: data } })
-}
+// const updateComment = async (id, data) => {
+//   return await Comment.updateOne({ article_id: id }, { $set: { comment: data } })
+// }
 
 // 增加该博文下的一条评论
 router.post('/addComment', async (ctx, next) => {
@@ -97,14 +97,14 @@ router.post('/addComment', async (ctx, next) => {
 // })
 
 // 删除该博文下的评论
-router.get('/removeComment', async (ctx, next) => {
+router.delete('/removeComment', async (ctx, next) => {
   try {
     // let list = findComemnt(ctx)
     // const data = list.filter((val) => {
     //   return val.comment_id !== ctx.query.comment_id
     // })
     // updateComment(ctx.query.id, data)
-    await Comment.deleteMany({ $or:[{comment_id : ctx.query.id},{p_id : ctx.query.id}]})
+    await Comment.deleteMany({ $or:[{comment_id: ctx.query.id},{p_id : ctx.query.id}]})
     ctx.status = 200
     ctx.body = {
       code: 200,

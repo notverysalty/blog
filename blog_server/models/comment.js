@@ -10,7 +10,7 @@ const Schema = mongoose.Schema
 const CommentSchema = new Schema({
   // 评论id
   comment_id: {
-    type: String,
+    type: Number,
     required: true,
     unique: true
   },

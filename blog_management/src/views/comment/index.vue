@@ -6,7 +6,6 @@
       :pagination="page"
       :data="comments"
       :columns="columns"
-      :rowEdit="true" 
       @actionClick="actionClick"
     >
       <template v-slot:head>
@@ -31,24 +30,24 @@ import { useRouter } from "vue-router";
 import { message } from "ant-design-vue";
 const columns = [
   {
-    title: "评论内容",
-    dataIndex: "title",
-    key: "title",
+    title: "昵称",
+    dataIndex: "nickname",
+    key: "nickname",
   },
   {
-    title: "昵称",
-    dataIndex: "type",
-    key: "type",
+    title: "评论内容",
+    dataIndex: "content",
+    key: "content",
   },
   {
     title: "邮箱",
-    key: "tags",
-    dataIndex: "tags",
+    key: "email",
+    dataIndex: "email",
   },
   {
     title: "评论时间",
-    dataIndex: "watch_num",
-    key: "watch_num",
+    dataIndex: "create_time",
+    key: "create_time",
   },
   {
     title: "操作",
@@ -67,6 +66,7 @@ export default defineComponent({
     const router = useRouter();
     const value = ref("");
     const comments = ref([])
+    const preKey = ref('')
     const onload = async () => {
       const res = await http.article.getAssignedArticle({});
       data.value = res.data.data;
@@ -77,11 +77,11 @@ export default defineComponent({
     };
     onBeforeMount(onload);
     const handleChange = async (key) => {
-      const res = await http.comment.getComment({article_id: key});
+      const res = await http.comment.getComment({id: key});
       comments.value = res.data.data
+      preKey.value = key
     }
     const actionClick = async (key, target) => {
-      let res = "";
       switch (key) {
         case "edit":
           router.push({
@@ -90,19 +90,19 @@ export default defineComponent({
           });
           break;
         case "delete":
-          res = await http.article.removeArticle({ id: target.article_id });
+          await http.comment.removeComment({ id: target.comment_id });
           message.success("删除成功");
           break;
         case "read":
-          router.push({ name: "preview", params: { id: target.article_id } });
+          router.push({ name: "preview", params: { id: target.comment_id } });
           break;
       }
-      console.log(res);
-      onload();
+      handleChange(preKey);
     };
     return {
       data,
       columns,
+      comments,
       value,
       page,
       loading,

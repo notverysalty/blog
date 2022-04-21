@@ -12,9 +12,23 @@
     <v-md-editor :model-value="data.body" mode="preview"></v-md-editor>
     <Reply @handleReply="handleReply" />
     <div class="comment_title">评论</div>
-    <Comment v-for="comment in comments" @replyByOne="handleReply" :key="comment.id" :comment="comment">
+    <Comment
+      :id="comment.comment_id"
+      v-for="comment in comments"
+      @replyByOne="handleReply"
+      :key="comment.id"
+      :comment="comment"
+    >
       <template v-slot:reply>
-        <Comment v-for="child in comment.children" :child="true" :key="child.id" @replyByOne="handleReply" style="fontsize: 12px" :comment="child" />
+        <Comment
+          :id="child.comment_id"
+          v-for="child in comment.children"
+          :child="true"
+          :key="child.id"
+          @replyByOne="handleReply"
+          style="fontsize: 12px"
+          :comment="child"
+        />
       </template>
     </Comment>
   </div>
@@ -46,20 +60,22 @@ export default {
     ]);
     const onload = async () => {
       const res = await http.article.getArticle({ id: route.params.id });
-      const comment = await http.article.getComment({ id: route.params.id })
-      comments.value = comment.data.data
       data.value = res.data.data;
-      console.log(data);
+      loadComment();
+    };
+    const loadComment = async () => {
+      const comment = await http.article.getComment({ id: route.params.id });
+      comments.value = comment.data.data;
     };
     const handleReply = async (reply) => {
-      const res = await http.article.addComment({
+      await http.article.addComment({
         article_id: route.params.id,
         nickname: reply.nickname,
         email: reply.email,
         content: reply.content,
-        p_id: reply.p_id ?? '-1'
+        p_id: reply.p_id ?? "-1",
       });
-      console.log(res);
+      loadComment();
     };
     onBeforeMount(onload);
     return {

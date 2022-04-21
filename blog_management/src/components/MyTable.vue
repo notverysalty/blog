@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 
 export default defineComponent({
   name: 'myTable',
@@ -95,11 +95,13 @@ export default defineComponent({
     },
   },
   setup (props, context) {
+    onMounted (() => {
+      console.log(props.data)
+    })
     const edit = ref(false)
     const actionClick = (e, target) => {
       if (props.rowEdit && e.target.id === 'edit') {
         edit.value = true
-        console.log(111111111, target)
         return
       }
       if (e.target.id === 'delete') {
