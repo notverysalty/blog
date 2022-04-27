@@ -16,8 +16,8 @@ const CommentSchema = new Schema({
   },
   // 评论父id
   p_id: {
-    type: String,
-    default: '-1',
+    type: Number,
+    default: 0,
   },
   // 文章id
   article_id: {

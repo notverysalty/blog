@@ -35,6 +35,9 @@ export default {
         return
       }
       context.emit('handleReply', reply)
+      reply.nickname = ''
+      reply.email = ''
+      reply.content = ''
     }
     return {
       reply,

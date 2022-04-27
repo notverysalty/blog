@@ -40,7 +40,7 @@ router.get('/getComment', async (ctx, next) => {
 // 增加该博文下的一条评论
 router.post('/addComment', async (ctx, next) => {
   const content = ctx.request.body
-  let id = 0
+  let id = 1
   try {
     const doc = await Comment.find({})
     if (doc.length !== 0) {

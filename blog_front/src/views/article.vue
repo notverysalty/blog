@@ -64,8 +64,18 @@ export default {
       loadComment();
     };
     const loadComment = async () => {
-      const comment = await http.article.getComment({ id: route.params.id });
-      comments.value = comment.data.data;
+      const res = await http.article.getComment({ id: route.params.id });
+      const cms = res?.data?.data
+      const data = []
+      cms.forEach(o => {
+        if (o.p_id === 0) {
+          data.push(o)
+        }
+      })
+      data.forEach(o => {
+        o.children = cms.filter(s => s.p_id === o.comment_id)
+      })
+      comments.value = data
     };
     const handleReply = async (reply) => {
       await http.article.addComment({
@@ -73,7 +83,7 @@ export default {
         nickname: reply.nickname,
         email: reply.email,
         content: reply.content,
-        p_id: reply.p_id ?? "-1",
+        p_id: reply.p_id ?? 0,
       });
       loadComment();
     };

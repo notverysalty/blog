@@ -2,5 +2,6 @@
     "editor.tabSize": 2,
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingDelete": "always",
-    "editor.autoClosingQuotes": "always"   
+    "editor.autoClosingQuotes": "always",
+    "editor.fontSize": 16
 }

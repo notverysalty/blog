@@ -10,7 +10,7 @@
         <div class="header">{{ comment.nickname }}</div>
         <div class="meta">
           <span class="date">{{ comment.create_time }}</span>
-          <span class="reply" @click="handleSwitch">回复</span>
+          <span class="reply" @click="handleSwitch">{{disabled ? '回复' : '收起'}}</span>
         </div>
         <div class="content">
           <p v-html="comment.content"></p>
@@ -54,10 +54,12 @@ export default {
       disabled.value = !disabled.value;
     };
     const handleReply = (reply) => {
-      console.log(1111, props.child);
+      console.log(1111, props.child, props.comment.comment_id);
       reply.p_id = props.child ? props.comment.p_id : props.comment.comment_id;
       reply.content = `<a style="color: #DE5F55" href="#${reply.p_id}">@${props.comment.nickname}</a> ${reply.content}`;
       context.emit("replyByOne", reply);
+      disabled.value = true
+      reply = ''
     };
     return {
       disabled,
@@ -83,6 +85,7 @@ export default {
   .container {
     width: 100%;
     .header {
+      font-weight: 600;
     }
     .meta {
       display: flex;
