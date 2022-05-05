@@ -4,16 +4,28 @@
       <div class="avatar"></div>
       <div class="name">yisakomi</div>
       <div class="info">
-        <div class="left"><div>文章</div><div>21</div></div>
-        <div class="right"><div>标签</div><div>11</div></div>
+        <div class="left">
+          <div>文章</div>
+          <div>{{ articleNum }}</div>
+        </div>
+        <div class="right">
+          <div>标签</div>
+          <div>{{ tagNum }}</div>
+        </div>
       </div>
       <div class="like">
-        <el-button type="danger" style="width: 100%;" plain><el-icon><flag /></el-icon>加入书签</el-button>
+        <el-button type="danger" style="width: 100%" plain @click="handleClick('book')"><el-icon><flag /></el-icon>加入书签</el-button>
       </div>
       <div class="icons">
-        <!-- <el-icon><star /></el-icon>
-        <el-icon><iphone /></el-icon>
-        <el-icon><message /></el-icon> -->
+        <a  @click="handleClick('wechat')">
+        <el-icon><chat-dot-round /></el-icon>
+        </a>
+        <a @click="handleClick('phone')">
+        <el-icon ><iphone /></el-icon>
+        </a>
+        <a href="mailto:1197181269@qq.com">
+          <el-icon><message /></el-icon>
+        </a>
       </div>
     </template>
   </Card>
@@ -21,11 +33,41 @@
 
 <script>
 import Card from "../card.vue";
+import { h } from "vue";
+import { ElNotification } from "element-plus";
 export default {
+  props: {
+    articleNum: {
+      type: Number,
+      require: true,
+    },
+    tagNum: {
+      type: Number,
+      require: true,
+    },
+  },
   components: {
     Card,
   },
-  setup() {},
+  setup() {
+    const handleClick = (type) => {
+      let text = ''
+      if (type === 'book') {
+        text = "按下Ctrl + D键加入书签"
+      } else if (type === 'phone') {
+        text = "QQ号：1197181269"
+      } else {
+        text = "微信号：Yy_Smiling_Joker"
+      }
+      ElNotification({
+        title: "",
+        message: h("i", { style: "color: teal" }, text),
+      });
+    };
+    return {
+      handleClick,
+    };
+  },
 };
 </script>
 
@@ -52,7 +94,7 @@ export default {
   }
   .info {
     height: 4rem;
-    padding: .5rem 10% 0;
+    padding: 0.5rem 10% 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -61,16 +103,22 @@ export default {
     > div {
       :first-child {
         font-size: 1.1rem;
-        padding-bottom: .2rem;
+        padding-bottom: 0.2rem;
       }
     }
   }
   .like {
     height: 3rem;
-    padding: .5rem 10% 0;
+    padding: 0.5rem 10% 0;
   }
   .icons {
     height: 3rem;
+    display: flex;
+    justify-content: space-around;
+    font-size: 2rem;
+    > a {
+      cursor: pointer;
+    }
   }
 }
 </style>

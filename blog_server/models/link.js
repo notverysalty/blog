@@ -26,8 +26,6 @@ const LinkSchema = new Schema({
     type: String,
     required: true
   },
-  // 网站标签
-  tags: Array,
   // 网站简介
   suggest: String,
   // 作者
@@ -38,10 +36,8 @@ const LinkSchema = new Schema({
   revise_time: String,
   // 状态
   status: {
-    type: Number,
-    // 0可用， 1不可用
-    enum: [0, 1],
-    default: 1
+    type: Boolean,
+    default: true
   }
 })
 

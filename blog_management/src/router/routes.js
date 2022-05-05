@@ -44,6 +44,11 @@ const routes = [
         component: () => import('../views/type/TypeList.vue'),
       },
       {
+        path: 'linkList',
+        name: 'linkList',
+        component: () => import('../views/link/index.vue'),
+      },
+      {
         path: 'commentList',
         name: 'commentList',
         component: () => import('../views/comment/index.vue'),

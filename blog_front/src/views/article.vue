@@ -11,7 +11,7 @@
     </Card>
     <v-md-editor :model-value="data.body" mode="preview"></v-md-editor>
     <Reply @handleReply="handleReply" />
-    <div class="comment_title">评论</div>
+    <div class="comment_title" v-if="comments.length">评论</div>
     <Comment
       :id="comment.comment_id"
       v-for="comment in comments"
@@ -105,6 +105,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  min-height: 90vh;
   align-items: center;
   flex-wrap: wrap;
   .title {

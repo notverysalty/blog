@@ -4,9 +4,9 @@
       <router-link to="/" class="home-link">yisakomi</router-link>
     </section>
     <div class="links">
-      <div class="search-box">
-        <input type="text" autocomplete="off" spellcheck="false" aria-label="Search" placeholder="文章" />
-      </div>
+      <!-- <div class="search-box">
+        <input type="text" autocomplete="off" spellcheck="false" aria-label="Search" @change="handleSearch" placeholder="文章" />
+      </div> -->
       <nav class="nav-links">
         <div class="nav-item" v-for="item in menu" :key="item.link">
           <router-link :to="item.link">{{ item.name }}</router-link>
@@ -44,10 +44,12 @@
         }, {
           name: '类型',
           link: '/types'
-        }, {
-          name: '生活',
-          link: '/life'
-        }, {
+        }, 
+        // {
+        //   name: '生活',
+        //   link: '/life'
+        // }, 
+        {
           name: '友链',
           link: '/links'
         }
@@ -68,7 +70,7 @@
     position: fixed;
     z-index: 1000;
     .logo {
-      padding-left: 3rem;
+      padding-left: 5rem;
       height: 2rem;
       line-height: 2rem;
       font-size: 1.3rem;
@@ -88,7 +90,7 @@
     .links {
       flex: 1;
       text-align: right;
-      margin-right: 2rem;
+      margin-right: 3rem;
 
       .search-box {
         display: inline-block;
@@ -116,7 +118,7 @@
 
       .nav-links {
         display: inline-block;
-
+        margin-right: 4rem;
         .nav-item {
           display: inline-block;
           margin-left: 1.5rem;

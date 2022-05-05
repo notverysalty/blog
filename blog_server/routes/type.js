@@ -36,7 +36,7 @@ router.delete('/removeType', async (ctx, next) => {
     if (type.num) {
       ctx.status = 200
       ctx.body = {
-        code: 200,
+        code: 0,
         msg: '删除类型前需要清空类型引用文章'
       }
       return
@@ -62,8 +62,8 @@ router.put('/updateType', async (ctx, next) => {
   if (content.num) {
     ctx.status = 200
     ctx.body = {
-      code: 200,
-      msg: '删除类型前需要清空类型引用文章'
+      code: 0,
+      msg: '修改类型前需要清空类型引用文章'
     }
     return
   }

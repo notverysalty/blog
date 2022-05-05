@@ -8,6 +8,7 @@ const { localDate } = require('../public/javascripts/dateFormat')
 
 // 引入数据表
 const { Article, Tag, Type, Ids } = require('../models')
+const { JsonWebTokenError } = require('jsonwebtoken')
 
 // 路由
 // 添加新的博文
@@ -134,11 +135,14 @@ router.get('/getAssignedArticle', async (ctx, next) => {
   // page 页面
   // num 需要的数量
   try {   
-    const data = await Article.find(ctx.query)
+    const page = Number(ctx.query.page)
+    const num = Number(ctx.query.num)
+    const term = ctx.query.term ? JSON.parse(ctx.query.term) : {}
+    const data = await Article.find(term)
       .sort({ article_id: -1 })
-      .skip(ctx.query.page)
-      .limit(ctx.query.num)
-    const total = await Article.find(ctx.query).count()
+      .skip(page)
+      .limit(num)
+    const total = await Article.find(term).count()
     ctx.status = 200
     ctx.body = {
       code: 200,

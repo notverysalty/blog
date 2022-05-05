@@ -50,6 +50,14 @@ const login = {
   verify: '/user/verify'
 }
 
+// 外链api
+const link = {
+  addLink: '/link/addLink',
+  removeLink: '/link/removeLink',
+  updateLink: '/link/updateLink',
+  getLink: '/link/getLink'
+}
+
 // 评论api
 const comment = {
   addComment: '/comment/addComment',
@@ -71,5 +79,6 @@ export {
   type,
   login,
   upload,
-  comment
+  comment,
+  link
 }

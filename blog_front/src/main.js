@@ -18,6 +18,10 @@ import randomColor from 'randomcolor'
 
 import Prism from "prismjs";
 
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
+
+
 VueMarkdownEditor.use(vuepressTheme, {
   Prism,
 });
@@ -33,5 +37,8 @@ app.config.globalProperties.$http = () => api
 app.config.globalProperties.randomColor = () => randomColor
 app.provide("$http", api)
 app.provide("randomColor", randomColor)
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 
 app.mount("#app")

@@ -34,6 +34,11 @@ export default {
         ElMessage.error('输入框不能为空')
         return
       }
+      const email = /^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/
+      if (!email.test(reply.email)) {
+        ElMessage.error('邮箱格式错误')
+        return
+      }
       context.emit('handleReply', reply)
       reply.nickname = ''
       reply.email = ''

@@ -50,7 +50,7 @@ export default {
 .card-tags {
   width: 100%;
   box-sizing: border-box;
-  padding: 1rem 1.2rem;
+  // padding: 1rem 1.2rem;
   border-radius: 8px;
   background: #fff;
   transition: all 0.3s;
@@ -58,6 +58,8 @@ export default {
   flex-wrap: wrap;
   .tags {
     font-size: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
     > div {
       cursor: pointer;
       &.checked {

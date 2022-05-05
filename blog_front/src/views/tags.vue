@@ -160,7 +160,7 @@ export default {
       if (id !== '全部') {
         query['tags'] = id
       }
-      const res = await http.article.getAssignedArticle(query)
+      const res = await http.article.getAssignedArticle({term: query})
       const articleTags = giveColor(res.data.data)
       data.value = res.data.data
       data.value.forEach((item, i) => {
@@ -183,7 +183,8 @@ export default {
   // background-color: #f4f4f4;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 20%;
+  padding: 0 30%;
+  min-width: 700px;
   display: flex;
   justify-content: center;
   align-items: center;

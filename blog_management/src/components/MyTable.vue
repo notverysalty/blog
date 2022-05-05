@@ -49,21 +49,28 @@
           />
         </span>
       </template>
-      <template #action="{ text, record }">
+      <template v-if="!onlyDelete" #action="{ text, record }">
         <span v-if="!edit" @click="actionClick($event, text)">
           <a id="edit">编辑</a>
           <a-divider type="vertical" />
-          <a-popconfirm title="Sure to cancel?" @confirm="handleDelete(text)">
+          <a-popconfirm title="确定要删除吗?" @confirm="handleDelete(text)">
             <a id="delete">删除</a>
           </a-popconfirm>
           <a-divider v-if="!rowEdit" type="vertical" />
           <a id="read" v-if="!rowEdit">查看</a>
         </span>
         <span v-else>
-          <a @click="save(record)">Save</a>
+          <a @click="save(record)">保存</a>
           <a-divider type="vertical" />
-          <a-popconfirm title="Sure to cancel?" @confirm="cancel">
-            <a>Cancel</a>
+          <a-popconfirm title="确定要取消吗?" @confirm="cancel">
+            <a>取消</a>
+          </a-popconfirm>
+        </span>
+      </template>
+      <template v-else #action="{ text }">
+        <span @click="actionClick($event, text)">
+          <a-popconfirm title="确定要删除吗?" @confirm="handleDelete(text)">
+            <a id="delete">删除</a>
           </a-popconfirm>
         </span>
       </template>
@@ -88,6 +95,10 @@ export default defineComponent({
     isButton: {
       type: Boolean,
       default: false,
+    },
+    onlyDelete: {
+      type: Boolean,
+      default: false
     },
     rowEdit: {
       type: Boolean,

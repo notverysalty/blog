@@ -1,39 +1,35 @@
 <template>
   <el-timeline>
     <el-timeline-item
-      v-for="(activity, index) in activities"
-      :key="index"
-      :timestamp="activity.timestamp"
-      :color="activity.color"
+      v-for="activity in activities"
+      :key="activity.article_id"
+      :timestamp="activity.create_time"
+      :hollow="true"
     >
-      {{ activity.content }}
+      <a style="cursor: pointer;color:#2d8cf0" @click="handleClick(activity.article_id)">
+        {{ activity.title }}
+      </a>
     </el-timeline-item>
   </el-timeline>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 export default {
+  props: {
+    activities: {
+      type: Array,
+      required: true,
+    },
+  },
   setup() {
-    const activities = [
-      {
-        content: "Event start",
-        timestamp: "2018-04-15",
-        color: "#DE5F55",
-      },
-      {
-        content: "Approved",
-        timestamp: "2018-04-13",
-        color: "#DE5F55",
-      },
-      {
-        content: "Success",
-        timestamp: "2018-04-11",
-        color: "#DE5F55",
-      },
-    ];
+    const router = useRouter()
+    const handleClick = (id) => {
+      router.push({name: 'article', params: { id }})
+    }
     return {
-      activities,
-    };
+      handleClick
+    }
   },
 };
 </script>

@@ -14,9 +14,9 @@
             </a-avatar>
             <template #overlay>
               <a-menu>
-                <a-menu-item key="1">
+                <!-- <a-menu-item key="1">
                   <UserOutlined />个人中心
-                </a-menu-item>
+                </a-menu-item> -->
                 <a-menu-item key="2" @click="exitHandle">
                   <ExportOutlined />退出
                 </a-menu-item>
@@ -75,6 +75,17 @@
             </template>
             <a-menu-item key="tagList">
               <router-link :to="{name: 'tagList'}">标签列表 </router-link>
+            </a-menu-item>
+          </a-sub-menu>
+           <a-sub-menu key="link">
+            <template #title>
+              <span>
+                <notification-outlined />
+                外链
+              </span>
+            </template>
+            <a-menu-item key="linkList">
+              <router-link :to="{name: 'linkList'}">外链列表 </router-link>
             </a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="comment">

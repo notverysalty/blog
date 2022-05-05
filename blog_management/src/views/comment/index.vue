@@ -6,6 +6,7 @@
       :pagination="page"
       :data="comments"
       :columns="columns"
+      :onlyDelete="true"
       @actionClick="actionClick"
     >
       <template v-slot:head>
@@ -66,7 +67,7 @@ export default defineComponent({
     const router = useRouter();
     const value = ref("");
     const comments = ref([])
-    const preKey = ref('')
+    let preKey = ''
     const onload = async () => {
       const res = await http.article.getAssignedArticle({});
       data.value = res.data.data;
@@ -79,7 +80,7 @@ export default defineComponent({
     const handleChange = async (key) => {
       const res = await http.comment.getComment({id: key});
       comments.value = res.data.data
-      preKey.value = key
+      preKey = key
     }
     const actionClick = async (key, target) => {
       switch (key) {

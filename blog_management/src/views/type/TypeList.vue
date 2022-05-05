@@ -65,10 +65,19 @@ export default defineComponent({
       switch (key) {
         case 'edit':
           res = await http.type.updateType(target)
+           if (res.data.code == 0) {
+            message.error(res.data.msg);
+          } else {
+            message.success("修改成功");
+          }
           break
         case 'delete':
           res = await http.type.removeType({ name: target.name })
-          message.success('删除成功')
+          if (res.data.code == 0) {
+            message.error(res.data.msg);
+          } else {
+            message.success("删除成功");
+          }
           break
         case 'read':
           break

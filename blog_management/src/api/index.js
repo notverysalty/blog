@@ -4,6 +4,7 @@ import type from './type'
 import login from './login'
 import upload from './upload'
 import comment from './comment'
+import link from './link'
 
 export default {
   article,
@@ -11,5 +12,6 @@ export default {
   type,
   login,
   upload,
-  comment
+  comment,
+  link
 }

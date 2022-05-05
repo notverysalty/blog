@@ -42,7 +42,7 @@ router.delete('/removeTag', async (ctx, next) => {
     if (tag.num) {
       ctx.status = 200
       ctx.body = {
-        code: 200,
+        code: 0,
         msg: '删除标签前需要清空标签引用文章'
       }
       return
@@ -68,8 +68,8 @@ router.put('/updateTag', async (ctx, next) => {
   if (content.num) {
     ctx.status = 200
     ctx.body = {
-      code: 200,
-      msg: '删除标签前需要清空标签引用文章'
+      code: 0,
+      msg: '修改标签前需要清空标签引用文章'
     }
     return
   }
