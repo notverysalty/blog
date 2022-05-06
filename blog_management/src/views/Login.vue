@@ -87,7 +87,7 @@ export default defineComponent({
         getVerify()
         return
       }
-      router.push({ name: 'home' })
+      router.push({ name: 'index' })
     }
 
     const handleFinishFailed = (errors) => {

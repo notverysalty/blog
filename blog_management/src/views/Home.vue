@@ -7,7 +7,7 @@
         </a-col>
         <a-col flex="0 1 300px" class="right">
           <a-dropdown :trigger="['click']">
-            <a-avatar :size="large" style="cursor: pointer;">
+            <a-avatar :size="large" style="cursor: pointer">
               <template #icon>
                 <UserOutlined />
               </template>
@@ -40,7 +40,15 @@
     </a-layout-header>
     <a-layout class="main">
       <a-layout-sider width="200" style="background: #fff">
-        <a-menu mode="inline" v-model:selectedKeys="selectedKeys2" v-model:openKeys="openKeys" :style="{ height: '100%', borderRight: 0 }">
+        <a-menu
+          mode="inline"
+          v-model:selectedKeys="selectedKeys2"
+          v-model:openKeys="openKeys"
+          :style="{ height: '100%', borderRight: 0 }"
+        >
+          <a-menu-item key="index">
+            <router-link :to="{ name: 'index' }"><HomeOutlined /> 首页 </router-link>
+          </a-menu-item>
           <a-sub-menu key="article">
             <template #title>
               <span>
@@ -49,10 +57,10 @@
               </span>
             </template>
             <a-menu-item key="articleList">
-              <router-link :to="{name: 'articleList'}">我的文章 </router-link>
+              <router-link :to="{ name: 'articleList' }">我的文章 </router-link>
             </a-menu-item>
             <a-menu-item key="addArticle">
-              <router-link :to="{name: 'addArticle'}">新增文章 </router-link>
+              <router-link :to="{ name: 'addArticle' }">新增文章 </router-link>
             </a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="type">
@@ -63,29 +71,29 @@
               </span>
             </template>
             <a-menu-item key="typeList">
-              <router-link :to="{name: 'typeList'}">类型列表 </router-link>
+              <router-link :to="{ name: 'typeList' }">类型列表 </router-link>
             </a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="tag">
             <template #title>
               <span>
-                <laptop-outlined />
+                <TagsOutlined />
                 标签
               </span>
             </template>
             <a-menu-item key="tagList">
-              <router-link :to="{name: 'tagList'}">标签列表 </router-link>
+              <router-link :to="{ name: 'tagList' }">标签列表 </router-link>
             </a-menu-item>
           </a-sub-menu>
-           <a-sub-menu key="link">
+          <a-sub-menu key="link">
             <template #title>
               <span>
-                <notification-outlined />
+                <ShareAltOutlined />
                 外链
               </span>
             </template>
             <a-menu-item key="linkList">
-              <router-link :to="{name: 'linkList'}">外链列表 </router-link>
+              <router-link :to="{ name: 'linkList' }">外链列表 </router-link>
             </a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="comment">
@@ -96,7 +104,7 @@
               </span>
             </template>
             <a-menu-item key="commentList">
-              <router-link :to="{name: 'commentList'}">评论列表 </router-link>
+              <router-link :to="{ name: 'commentList' }">评论列表 </router-link>
             </a-menu-item>
           </a-sub-menu>
         </a-menu>
@@ -107,12 +115,14 @@
           <a-breadcrumb-item>List</a-breadcrumb-item>
           <a-breadcrumb-item>App</a-breadcrumb-item>
         </a-breadcrumb> -->
-        <a-layout-content :style="{
+        <a-layout-content
+          :style="{
             background: '#fff',
             padding: '24px',
             margin: 0,
             minHeight: '280px',
-          }">
+          }"
+        >
           <router-view />
         </a-layout-content>
       </a-layout>
@@ -125,52 +135,55 @@ import {
   LaptopOutlined,
   NotificationOutlined,
   ExportOutlined,
-} from '@ant-design/icons-vue'
-import { defineComponent, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import util from '../util/util'
+  ShareAltOutlined,
+  TagsOutlined,
+  HomeOutlined
+} from "@ant-design/icons-vue";
+import { defineComponent, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import util from "../util/util";
 export default defineComponent({
   components: {
     UserOutlined,
     LaptopOutlined,
     NotificationOutlined,
     ExportOutlined,
+    ShareAltOutlined,
+    TagsOutlined,
+    HomeOutlined
   },
 
   setup() {
-    const route = useRoute()
-    const router = useRouter()
-    const selectedKeys2 = ref([route.name])
-    const menus = ['article', 'type', 'tag']
+    const route = useRoute();
+    const router = useRouter();
+    const selectedKeys2 = ref([route.name]);
+    const menus = ["article", "type", "tag"];
     const getCurRoute = (route) => {
       for (let i = 0; i < menus.length; i++) {
         if (route.includes(menus[i])) {
-          return menus[i]
+          return menus[i];
         }
       }
-    }
-    const openKeys = ref([getCurRoute(route.name)])
-    watch(
-      route,
-      (newValue) => {
-        selectedKeys2.value = [newValue.name]
-        openKeys.value.push(getCurRoute(newValue.name))
-      }
-    )
+    };
+    const openKeys = ref([getCurRoute(route.name)]);
+    watch(route, (newValue) => {
+      selectedKeys2.value = [newValue.name];
+      openKeys.value.push(getCurRoute(newValue.name));
+    });
     const exitHandle = () => {
-      util.localClear()
-      console.log(router)
-      router.replace({name: 'login'})
-    }
+      util.localClear();
+      console.log(router);
+      router.replace({ name: "login" });
+    };
     return {
-      selectedKeys1: ref(['2']),
+      selectedKeys1: ref(["2"]),
       selectedKeys2,
       collapsed: ref(false),
       openKeys,
-      exitHandle
-    }
+      exitHandle,
+    };
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>
