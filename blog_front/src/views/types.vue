@@ -1,6 +1,19 @@
 <template>
   <div class="tags">
-    <CardTags class="search" :tags="tags" @handleClick="handleClick"></CardTags>
+    <el-card shadow="always" class="search">
+      <el-row :gutter="20">
+        <el-radio-group v-model="radio1" @change="handleChange">
+          <el-col :span="6">
+            <el-radio label=""> 全部：<el-tag>{{total}}篇</el-tag> </el-radio>
+          </el-col>
+          <el-col v-for="type in types" :key="type.name" :span="6">
+            <el-radio :label="type.name">
+              {{ type.name }}：<el-tag>{{ type.num }}篇</el-tag>
+            </el-radio>
+          </el-col>
+        </el-radio-group>
+      </el-row>
+    </el-card>
     <div class="content">
       <CardWrap
         class="item"
@@ -16,162 +29,50 @@
 </template>
 
 <script>
-import CardTags from "../components/index/card-tags.vue";
 import CardWrap from "../components/index/card-wrap.vue";
 import { inject, ref, onBeforeMount } from "vue";
-import { giveColor, tagsColor } from "../util";
+import { giveColor } from "../util";
 export default {
   components: {
-    CardTags,
     CardWrap,
   },
   setup() {
-    const articles = [
-      {
-        title: "关于我的博客",
-        date: "2022-3-1",
-        tags: [
-          {
-            name: "js",
-            color: "red",
-          },
-          {
-            name: "html",
-            color: "#ccc",
-          },
-          {
-            name: "css",
-            color: "green",
-          },
-          {
-            name: "jq",
-            color: "yellow",
-          },
-        ],
-      },
-      {
-        title: "关于我的博客",
-        date: "2022-3-1",
-        tags: [
-          {
-            name: "js",
-            color: "red",
-          },
-          {
-            name: "html",
-            color: "#ccc",
-          },
-          {
-            name: "css",
-            color: "green",
-          },
-          {
-            name: "jq",
-            color: "yellow",
-          },
-        ],
-      },
-      {
-        title: "关于我的博客",
-        date: "2022-3-1",
-        tags: [
-          {
-            name: "js",
-            color: "red",
-          },
-          {
-            name: "html",
-            color: "#ccc",
-          },
-          {
-            name: "css",
-            color: "green",
-          },
-          {
-            name: "jq",
-            color: "yellow",
-          },
-        ],
-      },
-      {
-        title: "关于我的博客",
-        date: "2022-3-1",
-        tags: [
-          {
-            name: "js",
-            color: "red",
-          },
-          {
-            name: "html",
-            color: "#ccc",
-          },
-          {
-            name: "css",
-            color: "green",
-          },
-          {
-            name: "jq",
-            color: "yellow",
-          },
-        ],
-      },
-      {
-        title: "关于我的博客",
-        date: "2022-3-1",
-        tags: [
-          {
-            name: "js",
-            color: "red",
-          },
-          {
-            name: "html",
-            color: "#ccc",
-          },
-          {
-            name: "css",
-            color: "green",
-          },
-          {
-            name: "jq",
-            color: "yellow",
-          },
-        ],
-      },
-    ];
-    const tags = ref([]);
+    const radio1 = ref("");
+    const types = ref([]);
     const http = inject("$http");
     const data = ref([]);
+    const total = ref(0)
     const onload = async () => {
       const res = await http.article.getAssignedArticle({});
-      const resTags = await http.tag.getTag();
-      tags.value = tagsColor(resTags.data.data);
+      const resType = await http.type.getType();
       data.value = res.data.data;
+      total.value = res.data.total
       const articleTags = giveColor(res.data.data);
       data.value.forEach((item, i) => {
         item.tags = articleTags[i];
       });
-      // page.pageSize = 10
-      // page.total = res.data.total
+      types.value = resType.data.data.filter((o) => o.status === true);
     };
     onBeforeMount(onload);
 
-    const handleClick = async (id) => {
-      const query = {};
-      if (id !== "全部") {
-        query["tags"] = id;
-      }
-      const res = await http.article.getAssignedArticle({ term: query });
-      const articleTags = giveColor(res.data.data);
+    const handleChange = async (name) => {
+      const term = {}
+      if (name) {
+        term.type = name
+      } 
+      const res = await http.article.getAssignedArticle({term});
       data.value = res.data.data;
+      const articleTags = giveColor(res.data.data);
       data.value.forEach((item, i) => {
         item.tags = articleTags[i];
       });
     };
     return {
-      tags,
+      types,
       data,
-      articles,
-      handleClick,
+      total,
+      radio1,
+      handleChange,
     };
   },
 };
@@ -191,7 +92,9 @@ export default {
   flex-wrap: wrap;
   .search {
     width: 100%;
-    padding: 2rem 2rem;
+    // padding: 2rem 2rem;
+    background-color: white;
+    border-radius: 0.5rem;
   }
   .content {
     width: 100%;

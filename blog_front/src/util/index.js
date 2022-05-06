@@ -19,6 +19,9 @@ const tagsColor = (target) => {
   target.unshift({name: '全部'})
   const tags = []
   target.forEach((item) => {
+    if (item.status === false) {
+      return
+    }
     tags.push({
       name: item.name, color: randomColor({
         luminosity: 'bright',

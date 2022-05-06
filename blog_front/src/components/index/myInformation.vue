@@ -5,11 +5,11 @@
       <div class="name">yisakomi</div>
       <div class="info">
         <div class="left">
-          <div>文章</div>
+          <div><router-link :to="{name: 'archive'}"> 文章 </router-link></div>
           <div>{{ articleNum }}</div>
         </div>
         <div class="right">
-          <div>标签</div>
+          <div><router-link :to="{name: 'tags'}">标签</router-link></div>
           <div>{{ tagNum }}</div>
         </div>
       </div>

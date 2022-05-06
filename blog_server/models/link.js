@@ -10,7 +10,7 @@ const Schema = mongoose.Schema
 const LinkSchema = new Schema({
   // 网站id
   link_id: {
-    type: String,
+    type: Number,
     required: true,
     unique: true
   },

@@ -1,5 +1,6 @@
 // 初始化路由对象
 const router = require('koa-router')()
+const { numberSort } = require('../public/javascripts/sort')
 const { localDate } = require('../public/javascripts/dateFormat')
 
 // 引入数据表

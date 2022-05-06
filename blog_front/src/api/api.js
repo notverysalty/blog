@@ -54,6 +54,11 @@ const login = {
   verify: '/user/verify'
 }
 
+const link = {
+  // 获取所有外链
+  getLink: '/link/getLink'
+}
+
 // 上传
 const upload = {
   // 上传图片
@@ -66,6 +71,7 @@ export {
   article,
   tag,
   type,
+  link,
   login,
   upload
 }

@@ -11,7 +11,7 @@
       :isButton="true"
     />
     <ShowModal
-      title="XZ"
+      :title="editId === -1 ? '新增' : '编辑'"
       :visible="visible"
       @handleOk="handleOk"
       @handleCancel="handleCancel"
@@ -43,7 +43,6 @@
 import { defineComponent, inject, onBeforeMount, reactive, ref } from "vue";
 import MyTable from "../../components/MyTable.vue";
 import ShowModal from "../../components/ShowModal.vue";
-import { useRouter } from "vue-router";
 import { message } from "ant-design-vue";
 const columns = [
   {
@@ -87,7 +86,6 @@ export default defineComponent({
     const loading = ref(true);
     const page = {};
     const data = ref([]);
-    const router = useRouter();
     const visible = ref(false);
     const formRef = ref();
     const modalData = reactive({
@@ -121,6 +119,7 @@ export default defineComponent({
         trigger: "blur",
       },
     });
+    const editId = ref(-1);
     const onload = async () => {
       const res = await http.link.getLink({});
       data.value = res.data.data;
@@ -130,36 +129,59 @@ export default defineComponent({
     };
     onBeforeMount(onload);
     const actionClick = async (key, target) => {
-      let res = "";
       switch (key) {
         case "edit":
-          router.push({
-            name: "editArticle",
-            params: { id: target.article_id },
-          });
-          break;
+          handleEdit(target.link_id);
+          return;
         case "delete":
-          res = await http.article.removeArticle({ id: target.article_id });
+          await http.link.removeLink({ id: target.link_id });
           message.success("删除成功");
           break;
         case "read":
-          router.push({ name: "preview", params: { id: target.article_id } });
+          window.open("http://" + target.link, "_blank");
           break;
       }
-      console.log(res);
       onload();
     };
     const addClick = () => {
       visible.value = true;
     };
+    const handleEdit = async (id) => {
+      const res = await http.link.getLink({ link_id: id });
+      const data = res?.data?.data[0];
+      modalData.name = data.name;
+      modalData.link = data.link;
+      modalData.suggest = data.suggest;
+      modalData.author = data.author;
+      editId.value = id;
+      visible.value = true;
+    };
     const handleCancel = () => {
       visible.value = false;
+      editId.value = -1;
+      modalData.name = "";
+      modalData.link = "";
+      modalData.suggest = "";
+      modalData.author = "";
     };
     const handleOk = async () => {
       formRef.value.validate().then(async () => {
-        await http.link.addLink(modalData)
-        message.success("添加成功")
+        if (editId.value !== -1) {
+          const data = modalData;
+          data.id = editId.value;
+          await http.link.updateLink(data);
+          editId.value = -1;
+          message.success("修改成功");
+        } else {
+          await http.link.addLink(modalData);
+          message.success("添加成功");
+        }
         visible.value = false;
+        modalData.name = "";
+        modalData.link = "";
+        modalData.suggest = "";
+        modalData.author = "";
+        onload();
       });
     };
     return {
@@ -171,6 +193,7 @@ export default defineComponent({
       modalData,
       rules,
       formRef,
+      editId,
       labelCol: {
         span: 4,
       },

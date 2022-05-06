@@ -83,6 +83,7 @@ export default {
       }
     }
     .right {
+      padding-left: 10%;
       width: 30%;
     }
   }
