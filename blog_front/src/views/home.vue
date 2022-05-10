@@ -288,6 +288,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .home {
+  min-height: 60rem;
   .banner {
     height: 40rem;
     position: absolute;

@@ -46,7 +46,7 @@ export default defineComponent({
     const formState = ref({
       title: '',
       body: '',
-      type: [],
+      type: '',
       tags: []
     })
     // 获取路由对象
@@ -60,13 +60,14 @@ export default defineComponent({
     onBeforeMount(async () => {
       const tagres = await http.tag.getTag({status: true})
       const typeres = await http.type.getType({status: true})
-      types.value = typeres.data.data
-      tags.value = tagres.data.data
+      types.value = typeres.data.data.filter(o => o.status === true)
+      tags.value = tagres.data.data.filter(o => o.status === true)
       formState.value = props.data || formState.value
       btn.value = props.mode === 'add' ? '发布':'修改'
     })
     const clickHandle = async () => {
-      if (!formState.value.title || !formState.value.body) {
+      if (!formState.value.title || !formState.value.body || !formState.value.type || !formState.value.tags.length) {
+        message.error("输入框填完整后才能保存")
         return
       }
       let res = ''

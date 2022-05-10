@@ -111,7 +111,11 @@ export default defineComponent({
         return;
       }
       const res = await http.tag.addTag({ name: value.value });
-      message.success("保存成功");
+      if (res.data.code !== 200) {
+        message.error("标签已存在");
+      } else {
+        message.success("保存成功");
+      }
       console.log(res);
       getTag();
       value.value = "";

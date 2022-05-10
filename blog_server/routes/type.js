@@ -19,6 +19,12 @@ router.post('/addType', async (ctx, next) => {
         code: 200,
         msg: '添加成功'
       }
+    } else {
+      ctx.status = 200
+      ctx.body = {
+        code: 0,
+        msg: '标签已存在'
+      }
     }
   } catch (err) {
     ctx.status = 500

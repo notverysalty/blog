@@ -42,7 +42,7 @@
           name: '标签',
           link: '/tags'
         }, {
-          name: '类型',
+          name: '分类',
           link: '/types'
         }, 
         // {

@@ -13,7 +13,7 @@ const { Comment } = require('../models')
 // 查询该博文下的一页评论, term表示条件
 router.get('/getComment', async (ctx, next) => {
   try {
-    const data = await Comment.find({ article_id: ctx.query.id }).sort({ create_time: -1 }).skip(ctx.query.page).limit(ctx.query.num)
+    const data = await Comment.find({ article_id: ctx.query.id }).sort({ comment_id: -1 }).skip(ctx.query.page).limit(ctx.query.num)
     ctx.status = 200
     ctx.body = {
       code: 200,

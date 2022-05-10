@@ -8,6 +8,7 @@
     >
       <a style="cursor: pointer;color:#2d8cf0" @click="handleClick(activity.article_id)">
         {{ activity.title }}
+        <el-tag>{{activity.type}}</el-tag>
       </a>
     </el-timeline-item>
   </el-timeline>

@@ -98,8 +98,12 @@ export default defineComponent({
         return
       }
       const res = await http.type.addType({ name: value.value })
+      if (res.data.code !== 200) {
+        message.error(res.data.msg);
+      } else {
+        message.success("保存成功");
+      }
       console.log(res)
-      message.success(res.data.msg)
       getType()
       value.value = ''
       visible.value = false
